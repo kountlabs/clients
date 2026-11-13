@@ -1,0 +1,228 @@
+diff --git a/apps/browser/src/autofill/browser/main-context-menu-handler.ts b/apps/browser/src/autofill/browser/main-context-menu-handler.ts
+index cd60def..7f1e5d5 100644
+--- a/apps/browser/src/autofill/browser/main-context-menu-handler.ts
++++ b/apps/browser/src/autofill/browser/main-context-menu-handler.ts
+@@ -48,7 +48,7 @@ export class MainContextMenuHandler {
+     return [
+       {
+         id: ROOT_ID,
+-        title: "Bitwarden",
++        title: "Kount Protect",
+       },
+       {
+         id: AUTOFILL_ID,
+diff --git a/apps/browser/src/autofill/notification/bar.html b/apps/browser/src/autofill/notification/bar.html
+index 8934fe6..c6bfe7a 100644
+--- a/apps/browser/src/autofill/notification/bar.html
++++ b/apps/browser/src/autofill/notification/bar.html
+@@ -1,7 +1,7 @@
+ ﻿<!doctype html>
+ <html>
+   <head>
+-    <title>Bitwarden</title>
++    <title>Kount Protect</title>
+     <meta charset="utf-8" />
+   </head>
+   <body></body>
+diff --git a/apps/browser/src/autofill/overlay/inline-menu/pages/button/button.html b/apps/browser/src/autofill/overlay/inline-menu/pages/button/button.html
+index 0103472..03c3f73 100644
+--- a/apps/browser/src/autofill/overlay/inline-menu/pages/button/button.html
++++ b/apps/browser/src/autofill/overlay/inline-menu/pages/button/button.html
+@@ -1,7 +1,7 @@
+ <!doctype html>
+ <html lang="en">
+   <head>
+-    <title>Bitwarden inline menu button</title>
++    <title>Kount Protect inline menu button</title>
+     <meta charset="utf-8" />
+     <meta name="viewport" content="width=device-width,initial-scale=1" />
+   </head>
+diff --git a/apps/browser/src/autofill/overlay/inline-menu/pages/list/list.html b/apps/browser/src/autofill/overlay/inline-menu/pages/list/list.html
+index 3edd26f..b83ea34 100644
+--- a/apps/browser/src/autofill/overlay/inline-menu/pages/list/list.html
++++ b/apps/browser/src/autofill/overlay/inline-menu/pages/list/list.html
+@@ -1,7 +1,7 @@
+ <!doctype html>
+ <html lang="en">
+   <head>
+-    <title>Bitwarden vault</title>
++    <title>Kount Protect vault</title>
+     <meta charset="utf-8" />
+     <meta name="viewport" content="width=device-width,initial-scale=1" />
+     <meta name="color-scheme" content="normal" />
+diff --git a/apps/browser/src/autofill/overlay/inline-menu/pages/menu-container/menu-container.html b/apps/browser/src/autofill/overlay/inline-menu/pages/menu-container/menu-container.html
+index e8b5aea..dd81eaf 100644
+--- a/apps/browser/src/autofill/overlay/inline-menu/pages/menu-container/menu-container.html
++++ b/apps/browser/src/autofill/overlay/inline-menu/pages/menu-container/menu-container.html
+@@ -1,7 +1,7 @@
+ <!doctype html>
+ <html lang="en">
+   <head>
+-    <title>Bitwarden inline menu</title>
++    <title>Kount Protect inline menu</title>
+     <meta charset="utf-8" />
+     <meta name="viewport" content="width=device-width,initial-scale=1" />
+   </head>
+diff --git a/apps/browser/src/dirt/phishing-detection/popup/protected-by-component.html b/apps/browser/src/dirt/phishing-detection/popup/protected-by-component.html
+index 6c55097..a5e59a0 100644
+--- a/apps/browser/src/dirt/phishing-detection/popup/protected-by-component.html
++++ b/apps/browser/src/dirt/phishing-detection/popup/protected-by-component.html
+@@ -1 +1 @@
+-<span class="tw-text-muted">{{ "protectedBy" | i18n: "Bitwarden phishing blocker" }}</span>
++<span class="tw-text-muted">{{ "protectedBy" | i18n: "Kount Protect phishing blocker" }}</span>
+diff --git a/apps/browser/src/platform/badge/badge-browser-api.ts b/apps/browser/src/platform/badge/badge-browser-api.ts
+index c9a0007..102e6db 100644
+--- a/apps/browser/src/platform/badge/badge-browser-api.ts
++++ b/apps/browser/src/platform/badge/badge-browser-api.ts
+@@ -231,7 +231,7 @@ export class DefaultBadgeBrowserApi implements BadgeBrowserApi {
+       this.sidebarAction.setBadgeText({ text, tabId });
+     } else if (this.sidebarAction) {
+       // Firefox
+-      const title = `Bitwarden${Utils.isNullOrEmpty(text) ? "" : ` [${text}]`}`;
++      const title = `Kount Protect${Utils.isNullOrEmpty(text) ? "" : ` [${text}]`}`;
+       await this.sidebarAction.setTitle({ title, tabId });
+     }
+   }
+diff --git a/apps/browser/src/platform/offscreen-document/index.html b/apps/browser/src/platform/offscreen-document/index.html
+index 78c8280..765bf84 100644
+--- a/apps/browser/src/platform/offscreen-document/index.html
++++ b/apps/browser/src/platform/offscreen-document/index.html
+@@ -7,7 +7,7 @@
+       content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"
+     />
+     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+-    <title>Bitwarden Offscreen Document</title>
++    <title>Kount Protect Offscreen Document</title>
+   </head>
+   <body></body>
+ </html>
+diff --git a/apps/browser/src/popup/index.ejs b/apps/browser/src/popup/index.ejs
+index 20b79b6..c769a65 100644
+--- a/apps/browser/src/popup/index.ejs
++++ b/apps/browser/src/popup/index.ejs
+@@ -3,7 +3,7 @@
+   <head>
+     <meta charset="UTF-8" />
+     <meta name="viewport" content="width=device-width, initial-scale=1" />
+-    <title>Bitwarden</title>
++    <title>Kount Protect</title>
+     <base href="" />
+   </head>
+   <body>
+diff --git a/apps/browser/src/sidepanel-disabled.html b/apps/browser/src/sidepanel-disabled.html
+index 9be48e6..c716fdb 100644
+--- a/apps/browser/src/sidepanel-disabled.html
++++ b/apps/browser/src/sidepanel-disabled.html
+@@ -2,7 +2,7 @@
+ <html lang="en">
+   <head>
+     <meta charset="utf-8" />
+-    <title>Bitwarden</title>
++    <title>Kount Protect</title>
+   </head>
+   <body></body>
+ </html>
+diff --git a/apps/browser/src/tools/popup/settings/about-dialog/about-dialog.component.html b/apps/browser/src/tools/popup/settings/about-dialog/about-dialog.component.html
+index af68959..933ce7e 100644
+--- a/apps/browser/src/tools/popup/settings/about-dialog/about-dialog.component.html
++++ b/apps/browser/src/tools/popup/settings/about-dialog/about-dialog.component.html
+@@ -1,10 +1,11 @@
+ <bit-simple-dialog>
+   <div bitDialogIcon>
+-    <i class="bwi bwi-shield bwi-3x" aria-hidden="true"></i>
++    <img src="/images/icon48.png" width="48" height="48" alt="" /><!-- Kount: the mark, not the shield glyph -->
+   </div>
+-  <div bitDialogTitle>Bitwarden</div>
++  <div bitDialogTitle>Kount Protect</div>
+   <div bitDialogContent>
+     <p>&copy; Bitwarden Inc. 2015-{{ year }}</p>
++    <p>Kount Protect was developed using Bitwarden&reg; open source software.</p>
+ 
+     <div #version>
+       <p>{{ "version" | i18n }}: {{ version$ | async }}</p>
+diff --git a/apps/browser/src/tools/popup/settings/about-page/about-page-v2.component.html b/apps/browser/src/tools/popup/settings/about-page/about-page-v2.component.html
+index b1c8bec..3cebb93 100644
+--- a/apps/browser/src/tools/popup/settings/about-page/about-page-v2.component.html
++++ b/apps/browser/src/tools/popup/settings/about-page/about-page-v2.component.html
+@@ -16,23 +16,13 @@
+         {{ "aboutBitwarden" | i18n }}
+       </button>
+     </bit-item>
+-    <bit-item>
+-      <button type="button" bit-item-content (click)="launchHelp()">
+-        {{ "helpCenter" | i18n }}
+-        <i slot="end" class="bwi bwi-external-link" aria-hidden="true"></i>
+-      </button>
+-    </bit-item>
++    <!-- Kount: no help-centre link (it leads to Bitwarden's pages). -->
+     <bit-item>
+       <button type="button" bit-item-content (click)="openWebVault()">
+         {{ "bitWebVaultApp" | i18n }}
+         <i slot="end" class="bwi bwi-external-link" aria-hidden="true"></i>
+       </button>
+     </bit-item>
+-    <bit-item>
+-      <button type="button" bit-item-content (click)="rate()">
+-        {{ "rateExtension" | i18n }}
+-        <i slot="end" class="bwi bwi-external-link" aria-hidden="true"></i>
+-      </button>
+-    </bit-item>
++    <!-- Kount: no "Rate the extension" link (it leads to Bitwarden's store pages). -->
+   </bit-item-group>
+ </popup-page>
+diff --git a/apps/browser/src/tools/popup/settings/settings-v2.component.html b/apps/browser/src/tools/popup/settings/settings-v2.component.html
+index b5d34b5..92749c7 100644
+--- a/apps/browser/src/tools/popup/settings/settings-v2.component.html
++++ b/apps/browser/src/tools/popup/settings/settings-v2.component.html
+@@ -112,28 +112,6 @@
+         <i slot="end" class="bwi bwi-angle-right" aria-hidden="true"></i>
+       </a>
+     </bit-item>
+-    <bit-item>
+-      <a bit-item-content routerLink="/download-bitwarden" [truncate]="false">
+-        <i slot="start" class="bwi bwi-mobile" aria-hidden="true"></i>
+-        <div class="tw-flex tw-items-center">
+-          <p class="tw-pr-2">{{ "downloadBitwardenApps" | i18n }}</p>
+-          @if (showDownloadBitwardenNudge$ | async) {
+-            <bit-berry
+-              variant="danger"
+-              [value]="1"
+-              [attr.aria-label]="'nudgeBadgeAria' | i18n"
+-            ></bit-berry>
+-          }
+-        </div>
+-        <i slot="end" class="bwi bwi-angle-right" aria-hidden="true"></i>
+-      </a>
+-    </bit-item>
+-    <bit-item>
+-      <a bit-item-content routerLink="/more-from-bitwarden" [truncate]="false">
+-        <i slot="start" class="bwi bwi-grid" aria-hidden="true"></i>
+-        {{ "moreFromBitwarden" | i18n }}
+-        <i slot="end" class="bwi bwi-angle-right" aria-hidden="true"></i>
+-      </a>
+-    </bit-item>
++    <!-- Kount: no "Download … apps" or "More from …" items (they offer Bitwarden's products and bitwarden.com). -->
+   </bit-item-group>
+ </popup-page>
+diff --git a/libs/logging/src/flight-recorder-export.ts b/libs/logging/src/flight-recorder-export.ts
+index 20abaab..9bea805 100644
+--- a/libs/logging/src/flight-recorder-export.ts
++++ b/libs/logging/src/flight-recorder-export.ts
+@@ -7,7 +7,7 @@ const CSV_COLUMNS = ["timestamp", "level", "target", "message", "fields"] as con
+ /**
+  * Build a CSV download payload for {@link FlightRecorderEvent}s.
+  *
+- * Returns a `fileName` of the form `Bitwarden-diagnostic-report-YYYY-MM-DD.csv`
++ * Returns a `fileName` of the form `Kount-Protect-diagnostic-report-YYYY-MM-DD.csv`
+  * and a CSV-encoded `blobData` ready to pass to `FileDownloadService.download`.
+  *
+  * @param events The events to encode.
+@@ -31,7 +31,7 @@ export function buildFlightRecorderCsvExport(
+   });
+ 
+   const datePart = `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, "0")}-${String(date.getDate()).padStart(2, "0")}`;
+-  const fileName = `Bitwarden-diagnostic-report-${datePart}.csv`;
++  const fileName = `Kount-Protect-diagnostic-report-${datePart}.csv`;
+ 
+   return { fileName, blobData };
+ }

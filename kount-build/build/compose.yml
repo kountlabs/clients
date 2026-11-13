@@ -1,0 +1,91 @@
+# The extension spike's local throwaway: the Kount vault image (apps/vaultwarden-kount/, built as vaultwarden-kount:dev)
+# with its own database and mail catcher, under kext- names so it never meets the vault suite's vwk- throwaway.
+#
+#   docker compose -f apps/kount-extension/build/compose.yml up -d     start it (https://127.0.0.1:8100)
+#   docker compose -f apps/kount-extension/build/compose.yml down -v  remove it all
+#
+# KEXT_VAULT_IMAGE names another vault image: the build lane (.github/workflows/kount-extension-build.yml), which cannot
+# build the Kount vault, runs upstream Vaultwarden at the vault lock's version, pinned by digest (README § The lanes).
+#
+# Synthetic data only; loopback ports only. kext-init mints a self-signed certificate for 127.0.0.1 / localhost and a
+# random admin token into ../.build/throwaway/ (gitignored); nothing secret is in this file.
+name: kext
+
+services:
+  kext-init:
+    image: ${KEXT_VAULT_IMAGE:-vaultwarden-kount:dev}
+    container_name: kext-init
+    entrypoint: ["/bin/sh", "-c"]
+    command:
+      - |
+        set -e
+        cd /kount
+        if [ ! -f localhost.crt ]; then
+          openssl req -x509 -newkey rsa:2048 -sha256 -days 30 -nodes -subj /CN=localhost \
+            -addext subjectAltName=DNS:localhost,IP:127.0.0.1 -keyout localhost.key -out localhost.crt 2>/dev/null
+        fi
+        [ -f admin-token ] || openssl rand -hex 24 > admin-token
+        chmod 0644 localhost.crt localhost.key admin-token
+        chown "$(stat -c %u:%g /kount)" localhost.crt localhost.key admin-token
+    volumes:
+      - ../.build/throwaway:/kount
+
+  kext-pg:
+    # By digest, as the vault's build lane pins it (the build lane runs this file too).
+    image: postgres:16@sha256:5db6dac2ef5dcff512f4f00a009c3c332b9f2f28f24277175bf3e4a3d02ef83a
+    container_name: kext-pg
+    environment:
+      POSTGRES_USER: kext
+      POSTGRES_PASSWORD: kext
+      POSTGRES_DB: kext
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U kext -d kext"]
+      interval: 2s
+      timeout: 3s
+      retries: 30
+
+  kext-mail:
+    image: docker.io/axllent/mailpit:v1.27@sha256:e22dce5b36f93c77082e204a3942fb6b283b7896e057458400a4c88344c3df68
+    container_name: kext-mail
+    ports:
+      - "127.0.0.1:18125:8025"
+
+  kext-vw:
+    image: ${KEXT_VAULT_IMAGE:-vaultwarden-kount:dev}
+    container_name: kext-vw
+    depends_on:
+      kext-init: { condition: service_completed_successfully }
+      kext-pg: { condition: service_healthy }
+      kext-mail: { condition: service_started }
+    environment:
+      DATABASE_URL: postgresql://kext:kext@kext-pg:5432/kext
+      ADMIN_TOKEN_FILE: /kount/admin-token
+      SIGNUPS_ALLOWED: "false"
+      INVITATIONS_ALLOWED: "true"
+      INVITATION_ORG_NAME: Kount extension throwaway
+      SMTP_HOST: kext-mail
+      SMTP_PORT: "1025"
+      SMTP_SECURITY: "off"
+      SMTP_FROM: vault@kext.test
+      PUSH_ENABLED: "false"
+      ICON_BLACKLIST_NON_GLOBAL_IPS: "true"
+      ROCKET_TLS: '{certs="/kount/localhost.crt",key="/kount/localhost.key"}'
+      LOGIN_RATELIMIT_SECONDS: "1"
+      LOGIN_RATELIMIT_MAX_BURST: "10000"
+      ADMIN_RATELIMIT_SECONDS: "1"
+      ADMIN_RATELIMIT_MAX_BURST: "10000"
+      DOMAIN: https://127.0.0.1:8100
+      ROCKET_PORT: "8100"
+    ports:
+      - "127.0.0.1:8100:8100"
+    volumes:
+      - ../.build/throwaway:/kount:ro
+      - kext-data:/data
+    healthcheck:
+      test: ["CMD", "/healthcheck.sh"]
+      interval: 3s
+      timeout: 5s
+      retries: 40
+
+volumes:
+  kext-data:

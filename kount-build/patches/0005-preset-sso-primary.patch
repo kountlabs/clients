@@ -1,0 +1,31 @@
+diff --git a/libs/auth/src/angular/login/login.component.html b/libs/auth/src/angular/login/login.component.html
+index 895927b..0000ef8 100644
+--- a/libs/auth/src/angular/login/login.component.html
++++ b/libs/auth/src/angular/login/login.component.html
+@@ -11,7 +11,7 @@
+         appAutofocus
+         data-testid="login-email-input"
+         (input)="onEmailInput($event)"
+-        (keyup.enter)="ssoRequired ? handleSsoClick() : continuePressed()"
++        (keyup.enter)="handleSsoClick()"
+       />
+     </bit-form-field>
+ 
+@@ -34,7 +34,7 @@
+         type="button"
+         bitButton
+         block
+-        buttonType="primary"
++        buttonType="secondary"
+         data-testid="login-continue-button"
+         (click)="continuePressed()"
+         [bitTooltip]="ssoRequired ? ('yourOrganizationRequiresSingleSignOn' | i18n) : ''"
+@@ -69,7 +69,7 @@
+         type="button"
+         bitButton
+         block
+-        [buttonType]="ssoRequired ? 'primary' : 'secondary'"
++        buttonType="primary"
+         data-testid="login-sso-button"
+         (click)="handleSsoClick()"
+       >

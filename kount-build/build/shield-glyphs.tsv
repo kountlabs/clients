@@ -1,0 +1,11 @@
+# The Bitwarden shield glyphs each reviewed icon font holds (review round 46 PR-MED-033): <sha256> TAB <path in the
+# package> TAB <code point>[,<code point>…]. check-artefacts.mjs forbids these code points in every script, page and
+# stylesheet (outside the glyph's own CSS definition) whenever a package carries that font — whatever the stylesheet
+# says, so removing or renaming a selector cannot switch the rule off. Every `bwi-font` file a package carries must have
+# a row here (a new font fails until someone reads its glyph map: the SVG form names each glyph, `glyph-name=` /
+# `unicode=`). The four formats of upstream's browser-v2026.10.2 font, read from its SVG form 2026-11-12:
+# `<glyph glyph-name="bitwarden-shield" unicode="&#xF169;">`; `.bwi-shield` and `.bwi-bitwarden-shield` both draw it.
+ca07587d7118b4136888ed15808cc4a6cbf68b5da25c74144f20b94ac48db144	popup/fonts/bwi-font.68db43ff94a97d3d2dba.woff	U+F169
+70cb2ae62156d639046b4035104775c8d84852e5ed587e810ebd0298331b5203	popup/fonts/bwi-font.9ae6e12297499bbf04d1.ttf	U+F169
+0029fbc360276037cd99b6f5586be800cab6d69b068529856696abc2bde3baf4	popup/fonts/bwi-font.ba3c47f27559256c8878.woff2	U+F169
+8b21e4c7cff6ce2801d660f38604df010111cd43364e9e4ec2f124d335f80a7c	popup/fonts/bwi-font.db5928d5442707ff2c32.svg	U+F169

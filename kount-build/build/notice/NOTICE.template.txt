@@ -1,0 +1,30 @@
+Kount Protect {{VERSION}} ({{LABEL}})
+
+This program is a modified version of the browser extension published by Bitwarden, Inc. in the
+repository https://github.com/bitwarden/clients, release {{UPSTREAM_TAG}}, commit {{UPSTREAM_COMMIT}}.
+
+Kount modified it, starting on 2026-11-11. The changes are Kount's patch queue: the name, icons and pictures; the
+default server and sign-in; the English-only build; autofill on page load as the default; a hook that fills the login
+a person picks on Kount Protect's landing page; and menu items removed that led to Bitwarden, Inc.'s other products,
+help centre and store pages. The queue, the files it adds and the scripts that build these packages are
+in the kount-build/ directory of the corresponding source; KOUNT-BUILDING.md at its root gives the steps.
+
+Licence. This program is free software: you can redistribute it and/or modify it under the terms of the GNU General
+Public License as published by the Free Software Foundation, version 3 (LICENSE.txt in this package). It is
+distributed WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR
+PURPOSE. See the GNU General Public License for more details. LICENSE-UPSTREAM.txt is upstream's own licence notice,
+kept as published; the directory it names as under the Bitwarden License v1.0 (bitwarden_license/) is not part of
+this program — the build removes it before building and the corresponding source does not include it.
+
+Corresponding source. The complete source of this build — upstream's tree at the commit above with Kount's changes
+applied, and the kit that built it — is at:
+
+  {{SOURCE_URL}}
+
+The WebAssembly module in this package (every .wasm file in it is that one module) is from the unmodified npm package
+@bitwarden/sdk-internal {{SDK_VERSION}}, compiled by Bitwarden, Inc. from https://github.com/bitwarden/sdk-internal at
+commit {{SDK_COMMIT}}, whose source is published there; the package's own licence file (GPL-3.0) is reproduced in
+THIRD-PARTY-NOTICES.txt.
+
+Third-party software. THIRD-PARTY-NOTICES.txt lists the other packages, fonts and images bundled in this package,
+with their licences.

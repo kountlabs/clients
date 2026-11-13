@@ -1,0 +1,141 @@
+diff --git a/apps/browser/src/manifest.json b/apps/browser/src/manifest.json
+index 212131f..0041654 100644
+--- a/apps/browser/src/manifest.json
++++ b/apps/browser/src/manifest.json
+@@ -1,12 +1,12 @@
+ {
+   "manifest_version": 2,
+   "name": "__MSG_extName__",
+-  "short_name": "Bitwarden",
++  "short_name": "Kount Protect",
+   "version": "2026.10.2",
+   "description": "__MSG_extDesc__",
+   "default_locale": "en",
+-  "author": "Bitwarden Inc.",
+-  "homepage_url": "https://bitwarden.com",
++  "author": "Kount",
++  "homepage_url": "https://protect.kount.com.au",
+   "icons": {
+     "16": "images/icon16.png",
+     "32": "images/icon32.png",
+@@ -40,7 +40,7 @@
+       "19": "images/icon19.png",
+       "38": "images/icon38.png"
+     },
+-    "default_title": "Bitwarden",
++    "default_title": "Kount Protect",
+     "default_popup": "popup/index.html"
+   },
+   "permissions": [
+@@ -140,19 +140,27 @@
+   ],
+   "__firefox__browser_specific_settings": {
+     "gecko": {
+-      "id": "{446900e4-71c2-419f-a6a7-df9c091e268b}",
+-      "strict_min_version": "91.0"
++      "id": "kount-protect@kount.com.au",
++      "strict_min_version": "140.0",
++      "data_collection_permissions": {
++        "required": [
++          "authenticationInfo",
++          "personallyIdentifyingInfo",
++          "financialAndPaymentInfo",
++          "browsingActivity"
++        ]
++      }
+     }
+   },
+   "__firefox__sidebar_action": {
+-    "default_title": "Bitwarden",
++    "default_title": "Kount Protect",
+     "default_panel": "popup/index.html?uilocation=sidebar",
+     "default_icon": "images/icon19.png",
+     "open_at_install": false,
+     "browser_style": false
+   },
+   "__opera__sidebar_action": {
+-    "default_title": "Bitwarden",
++    "default_title": "Kount Protect",
+     "default_panel": "popup/index.html?uilocation=sidebar",
+     "default_icon": "images/icon19.png",
+     "open_at_install": false,
+diff --git a/apps/browser/src/manifest.v3.json b/apps/browser/src/manifest.v3.json
+index 3a9b826..e41686c 100644
+--- a/apps/browser/src/manifest.v3.json
++++ b/apps/browser/src/manifest.v3.json
+@@ -2,12 +2,12 @@
+   "manifest_version": 3,
+   "minimum_chrome_version": "134.0",
+   "name": "__MSG_extName__",
+-  "short_name": "Bitwarden",
++  "short_name": "Kount Protect",
+   "version": "2026.10.2",
+   "description": "__MSG_extDesc__",
+   "default_locale": "en",
+-  "author": "Bitwarden Inc.",
+-  "homepage_url": "https://bitwarden.com",
++  "author": "Kount",
++  "homepage_url": "https://protect.kount.com.au",
+   "icons": {
+     "16": "images/icon16.png",
+     "32": "images/icon32.png",
+@@ -43,7 +43,7 @@
+       "19": "images/icon19.png",
+       "38": "images/icon38.png"
+     },
+-    "default_title": "Bitwarden",
++    "default_title": "Kount Protect",
+     "default_popup": "popup/index.html"
+   },
+   "permissions": [
+@@ -55,7 +55,6 @@
+     "idle",
+     "offscreen",
+     "scripting",
+-    "sidePanel",
+     "storage",
+     "tabs",
+     "unlimitedStorage",
+@@ -109,9 +108,6 @@
+     "pages": ["overlay/menu-button.html", "overlay/menu-list.html"]
+   },
+   "__firefox__sandbox": null,
+-  "__chrome__side_panel": {
+-    "default_path": "sidepanel-disabled.html"
+-  },
+   "commands": {
+     "_execute_action": {
+       "suggested_key": {
+@@ -174,12 +170,20 @@
+   ],
+   "__firefox__browser_specific_settings": {
+     "gecko": {
+-      "id": "{446900e4-71c2-419f-a6a7-df9c091e268b}",
+-      "strict_min_version": "91.0"
++      "id": "kount-protect@kount.com.au",
++      "strict_min_version": "140.0",
++      "data_collection_permissions": {
++        "required": [
++          "authenticationInfo",
++          "personallyIdentifyingInfo",
++          "financialAndPaymentInfo",
++          "browsingActivity"
++        ]
++      }
+     }
+   },
+   "__firefox__sidebar_action": {
+-    "default_title": "Bitwarden",
++    "default_title": "Kount Protect",
+     "default_panel": "popup/index.html?uilocation=sidebar",
+     "default_icon": "images/icon19.png",
+     "open_at_install": false
+@@ -189,7 +193,7 @@
+   },
+   "__firefox__storage": null,
+   "__opera__sidebar_action": {
+-    "default_title": "Bitwarden",
++    "default_title": "Kount Protect",
+     "default_panel": "popup/index.html?uilocation=sidebar",
+     "default_icon": "images/icon19.png",
+     "open_at_install": false,

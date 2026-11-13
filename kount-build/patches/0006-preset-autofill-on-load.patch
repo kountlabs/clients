@@ -1,0 +1,33 @@
+diff --git a/libs/common/src/autofill/services/autofill-settings.service.ts b/libs/common/src/autofill/services/autofill-settings.service.ts
+index a6faed4..bb2bc10 100644
+--- a/libs/common/src/autofill/services/autofill-settings.service.ts
++++ b/libs/common/src/autofill/services/autofill-settings.service.ts
+@@ -22,8 +22,9 @@ import { RestrictedItemTypesService } from "../../vault/services/restricted-item
+ import { ClearClipboardDelay, AutofillOverlayVisibility } from "../constants";
+ import { ClearClipboardDelaySetting, InlineMenuVisibilitySetting } from "../types";
+ 
++// Kount: autofill on page load is on, for the switch and the per-item default, until the person turns it off.
+ const AUTOFILL_ON_PAGE_LOAD = new UserKeyDefinition(AUTOFILL_SETTINGS_DISK, "autofillOnPageLoad", {
+-  deserializer: (value: boolean) => value ?? false,
++  deserializer: (value: boolean) => value ?? true,
+   clearOn: [],
+ });
+ 
+@@ -31,7 +32,7 @@ const AUTOFILL_ON_PAGE_LOAD_DEFAULT = new UserKeyDefinition(
+   AUTOFILL_SETTINGS_DISK,
+   "autofillOnPageLoadDefault",
+   {
+-    deserializer: (value: boolean) => value ?? false,
++    deserializer: (value: boolean) => value ?? true,
+     clearOn: [],
+   },
+ );
+@@ -261,7 +262,7 @@ export class AutofillSettingsService implements AutofillSettingsServiceAbstracti
+     private configService: ConfigService,
+   ) {
+     this.autofillOnPageLoadState = this.stateProvider.getActive(AUTOFILL_ON_PAGE_LOAD);
+-    this.autofillOnPageLoad$ = this.autofillOnPageLoadState.state$.pipe(map((x) => x ?? false));
++    this.autofillOnPageLoad$ = this.autofillOnPageLoadState.state$.pipe(map((x) => x ?? true));
+ 
+     this.autofillOnPageLoadDefaultState = this.stateProvider.getActive(
+       AUTOFILL_ON_PAGE_LOAD_DEFAULT,
