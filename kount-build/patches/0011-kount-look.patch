@@ -1,0 +1,328 @@
+diff --git a/apps/browser/src/autofill/content/components/buttons/close-button.ts b/apps/browser/src/autofill/content/components/buttons/close-button.ts
+index 986a502..8e4452d 100644
+--- a/apps/browser/src/autofill/content/components/buttons/close-button.ts
++++ b/apps/browser/src/autofill/content/components/buttons/close-button.ts
+@@ -21,7 +21,7 @@ export function CloseButton({ handleCloseNotification, i18n, theme }: CloseButto
+       class=${closeButtonStyles(theme)}
+       @click=${handleCloseNotification}
+     >
+-      ${CloseIcon({ theme })}
++      ${CloseIcon({ theme, color: themes[theme].kountHeader.text })}
+     </button>
+   `;
+ }
+@@ -35,7 +35,7 @@ const closeButtonStyles = (theme: Theme) => css`
+   height: 36px;
+ 
+   :hover {
+-    border: 1px solid ${themes[theme].primary["600"]};
++    border: 1px solid ${themes[theme].kountHeader.text};
+   }
+ 
+   > svg {
+diff --git a/apps/browser/src/autofill/content/components/constants/styles.ts b/apps/browser/src/autofill/content/components/constants/styles.ts
+index 4eb4d0b..1a79208 100644
+--- a/apps/browser/src/autofill/content/components/constants/styles.ts
++++ b/apps/browser/src/autofill/content/components/constants/styles.ts
+@@ -2,16 +2,18 @@ import { Theme } from "@bitwarden/common/platform/enums";
+ 
+ import { IconProps } from "../common-types";
+ 
++// Kount: Protect's teal and navy in place of the brand blues (the Kount look, B · Navy header —
++// apps/kount-extension/docs/design/restyle-mockups/board.html).
+ const lightTheme = {
+   transparent: {
+     hover: `rgb(0 0 0 / 0.02)`,
+   },
+   shadow: `rgba(168 179 200)`,
+   primary: {
+-    100: `rgba(219, 229, 246)`,
+-    300: `rgba(121, 161, 233)`,
+-    600: `rgba(23, 93, 220)`,
+-    700: `rgba(26, 65, 172)`,
++    100: `rgba(204, 239, 233)`,
++    300: `rgba(95, 210, 195)`,
++    600: `rgba(15, 118, 110)`,
++    700: `rgba(11, 93, 86)`,
+   },
+   secondary: {
+     100: `rgba(230, 233, 239)`,
+@@ -41,8 +43,8 @@ const lightTheme = {
+     700: `rgba(26, 65, 172)`,
+   },
+   art: {
+-    primary: `rgba(2, 15, 102)`,
+-    accent: `rgba(44, 221, 223)`,
++    primary: `rgba(27, 40, 69)`,
++    accent: `rgba(45, 212, 191)`,
+   },
+   text: {
+     main: `rgba(27, 32, 41)`,
+@@ -54,13 +56,16 @@ const lightTheme = {
+   background: {
+     DEFAULT: `rgba(255, 255, 255)`,
+     alt: `rgba(243, 246, 249)`,
+-    alt2: `rgba(23, 92, 219)`,
+-    alt3: `rgba(26, 65, 172)`,
+-    alt4: `rgba(2, 15, 102)`,
++    alt2: `rgba(15, 118, 110)`,
++    alt3: `rgba(11, 93, 86)`,
++    alt4: `rgba(27, 40, 69)`,
+   },
+-  brandLogo: `rgba(23, 93, 220)`,
++  // Kount: the mark's tile is Protect's navy in both themes (the board; its white K needs it — s1e4).
++  brandLogo: `rgba(27, 40, 69)`,
+   passwordSpecial: `rgba(184, 0, 23)`,
+   passwordNumber: `rgba(20, 82, 193)`,
++  // Kount: the Save bar's navy header band and the text and icon on it.
++  kountHeader: { background: `rgba(27, 40, 69)`, text: `rgba(255, 255, 255)` },
+ };
+ 
+ const darkTheme = {
+@@ -69,10 +74,10 @@ const darkTheme = {
+   },
+   shadow: `rgba(0, 0, 0)`,
+   primary: {
+-    100: `rgba(26, 39, 78)`,
+-    300: `rgba(26, 65, 172)`,
+-    600: `rgba(101, 171, 255)`,
+-    700: `rgba(170, 195, 239)`,
++    100: `rgba(19, 78, 74)`,
++    300: `rgba(15, 118, 110)`,
++    600: `rgba(45, 212, 191)`,
++    700: `rgba(153, 246, 228)`,
+   },
+   secondary: {
+     100: `rgba(48, 57, 70)`,
+@@ -103,7 +108,7 @@ const darkTheme = {
+   },
+   art: {
+     primary: `rgba(243, 246, 249)`,
+-    accent: `rgba(44, 221, 233)`,
++    accent: `rgba(45, 212, 191)`,
+   },
+   text: {
+     main: `rgba(243, 246, 249)`,
+@@ -119,9 +124,10 @@ const darkTheme = {
+     alt3: `rgba(48, 57, 70)`,
+     alt4: `rgba(18, 26, 39)`,
+   },
+-  brandLogo: `rgba(255, 255, 255)`,
++  brandLogo: `rgba(27, 40, 69)`,
+   passwordSpecial: `rgba(255, 141, 133)`,
+   passwordNumber: `rgba(111, 157, 241)`,
++  kountHeader: { background: `rgba(19, 28, 51)`, text: `rgba(255, 255, 255)` },
+ };
+ 
+ export const themes = {
+diff --git a/apps/browser/src/autofill/content/components/notification/header-message.ts b/apps/browser/src/autofill/content/components/notification/header-message.ts
+index 2e51d82..e40db89 100644
+--- a/apps/browser/src/autofill/content/components/notification/header-message.ts
++++ b/apps/browser/src/autofill/content/components/notification/header-message.ts
+@@ -18,7 +18,7 @@ const notificationHeaderMessageStyles = (theme: Theme) => css`
+   text-overflow: ellipsis;
+   line-height: 28px;
+   white-space: nowrap;
+-  color: ${themes[theme].text.main};
++  color: ${themes[theme].kountHeader.text};
+   font-family: Inter, sans-serif;
+   font-size: 18px;
+   font-weight: 500;
+diff --git a/apps/browser/src/autofill/content/components/notification/header.ts b/apps/browser/src/autofill/content/components/notification/header.ts
+index 97cc389..732b225 100644
+--- a/apps/browser/src/autofill/content/components/notification/header.ts
++++ b/apps/browser/src/autofill/content/components/notification/header.ts
+@@ -54,7 +54,7 @@ const notificationHeaderStyles = ({
+   display: flex;
+   align-items: center;
+   justify-content: flex-start;
+-  background-color: ${themes[theme].background.DEFAULT};
++  background-color: ${themes[theme].kountHeader.background};
+   padding: 12px 16px 8px 16px;
+   white-space: nowrap;
+ 
+diff --git a/apps/browser/src/autofill/overlay/inline-menu/pages/list/list.scss b/apps/browser/src/autofill/overlay/inline-menu/pages/list/list.scss
+index 3eff2b5..2af7b7f 100644
+--- a/apps/browser/src/autofill/overlay/inline-menu/pages/list/list.scss
++++ b/apps/browser/src/autofill/overlay/inline-menu/pages/list/list.scss
+@@ -213,6 +213,21 @@ body * {
+   }
+ }
+ 
++// Kount: the navy on the menu's existing group heading (the Kount look, B · Navy header — the board; no header is
++// added to the menu), in small capitals; white on the navy reads 14.8 : 1. After the rules above, so it wins.
++.inline-menu-list-heading,
++.inline-menu-list-heading--bordered {
++  text-transform: uppercase;
++  letter-spacing: 0.07em;
++  font-weight: 650;
++
++  @include themify($themes) {
++    color: #ffffff;
++    background-color: #1b2845;
++    border-bottom-color: #1b2845;
++  }
++}
++
+ .inline-menu-list-container--with-new-item-button {
+   .inline-menu-list-actions {
+     max-height: 13.8rem;
+diff --git a/apps/browser/src/autofill/shared/styles/variables.scss b/apps/browser/src/autofill/shared/styles/variables.scss
+index f356eb8..cc5af58 100644
+--- a/apps/browser/src/autofill/shared/styles/variables.scss
++++ b/apps/browser/src/autofill/shared/styles/variables.scss
+@@ -8,7 +8,8 @@ $text-color-light: #212529;
+ $muted-text-color-light: #6c747c;
+ $background-color-light: #ffffff;
+ $background-offset-color-light: #f0f0f0;
+-$brand-primary-light: #175ddc;
++// Kount: Protect's teal and navy (the Kount look, B · Navy header — docs/design/restyle-mockups/board.html).
++$brand-primary-light: #0f766e;
+ $password-special-color-light: #b80017;
+ $password-number-color-light: #1452c1;
+ $success-color-light: #017e45;
+@@ -19,7 +20,7 @@ $muted-text-color-dark: #bac0ce;
+ $background-color-dark: #2f343d;
+ $background-offset-color-dark: darken(#2f343d, 2.75%);
+ $border-color-dark: #ddd;
+-$brand-primary-dark: #6f9df1;
++$brand-primary-dark: #2dd4bf;
+ $password-special-color-dark: #ff8d85;
+ $password-number-color-dark: #6f9df1;
+ $success-color-dark: #8db89b;
+@@ -29,8 +30,8 @@ $muted-blue: #5a6d91;
+ $muted-grey: #bac0ce;
+ $border-color: #ced4dc;
+ 
+-$border-radius: 3px;
+-$focus-outline-color: #1252a3;
++$border-radius: 6px;
++$focus-outline-color: #0d9488;
+ 
+ $themes: (
+   light: (
+diff --git a/libs/components/src/tw-theme.css b/libs/components/src/tw-theme.css
+index a212ada..ecff293 100644
+--- a/libs/components/src/tw-theme.css
++++ b/libs/components/src/tw-theme.css
+@@ -884,3 +884,120 @@
+     display: none;
+   }
+ }
++
++/* ========================================
++ * KOUNT — the Kount look, direction B · Navy header (apps/kount-extension/docs/design/restyle-mockups/board.html;
++ * plan-platform-kount-protect-sign-in-lock-and-look Decision 9). Kount's teal in place of the brand blue, Protect's
++ * navy on the popup's header band, small capital section labels and an outlined Fill. Colours, sizes, borders and
++ * text styles only: no element is added, removed or moved. Protect's palette: apps/kount-protect/src/render/shell.ts.
++ * ======================================== */
++:root {
++  /* The brand scale, step for step as light as the blue it replaces (so every pairing keeps its contrast); 700 and
++     800 are Protect's teal and its hover, 400 Protect's dark-mode teal. */
++  --color-brand-050: #e8faf7;
++  --color-brand-100: #c8f1ea;
++  --color-brand-200: #9fe5da;
++  --color-brand-300: #5fd2c3;
++  --color-brand-400: #2dd4bf;
++  --color-brand-500: #149c8f;
++  --color-brand-600: #0e8378;
++  --color-brand-700: #0f766e;
++  --color-brand-700-rgb: 15, 118, 110;
++  --color-brand-800: #0b5d56;
++  --color-brand-900: #0a4642;
++  --color-brand-950: #082f2c;
++  --color-brand-800-rgb: 11, 93, 86;
++  --color-brand-950-rgb: 8, 47, 44;
++
++  /* The legacy primary (older components). */
++  --color-primary-100: 204 239 233;
++  --color-primary-300: 95 210 195;
++  --color-primary-600: 15 118 110;
++  --color-primary-700: 11 93 86;
++  --color-hover-default: rgb(15 118 110 / 0.1);
++
++  --kount-navy: #1b2845;
++}
++
++.theme_dark {
++  --color-primary-100: 19 78 74;
++  --color-primary-300: 15 118 110;
++  --color-primary-600: 45 212 191;
++  --color-primary-700: 153 246 228;
++  --color-hover-default: rgb(45 212 191 / 0.1);
++
++  --kount-navy: #131c33;
++}
++
++/* The navy band: the popup's header (both its bars). Text and icons on it read light — the tokens its children paint
++   with are set again inside it. */
++popup-header > header,
++popup-header > header [data-testid="title-bar"],
++popup-header > header [data-testid="app-bar"] {
++  background-color: var(--kount-navy) !important;
++  border-color: transparent !important;
++}
++popup-header > header {
++  /* The wordmark ("Kount Protect" beside the mark) paints with the legacy marketing-logo colour: white on the band in
++     both themes (light's blue read 1.2 : 1 on the navy — s1e4's captures). */
++  --color-marketing-logo: 255 255 255;
++  --color-text-main: 255 255 255;
++  --color-text-muted: 198 207 220;
++  --color-fg-heading: #ffffff;
++  --color-fg-body: #e8edf5;
++  --color-fg-body-subtle: #c6cfdc;
++  --color-fg-nav: #ffffff;
++  --color-bg-hover: rgb(255 255 255 / 0.12);
++  --color-hover-default: rgb(255 255 255 / 0.12);
++  --color-border-focus: #ffffff;
++  /* Plain text projected into the band (the item count beside the title) inherits white, not the body's dark text
++     (round 12 PR-MED-066); a control with its own colour pair keeps it. */
++  color: rgb(var(--color-text-main));
++}
++popup-header > header button[bitIconButton] {
++  /* The header's ghost icon buttons (Back, Pop out) take the brand foreground on hover and keyboard focus: a light teal
++     on the band — ~10 : 1 on the navy, ~7 : 1 on the hover's lightened navy (round 11 PR-MED-062; teal #0f766e read
++     ~1.8 : 1 there). Set on those buttons only, so a chip in the header (Archived) keeps its own pale-surface pair
++     (round 12 PR-REG-001). */
++  --color-fg-brand: #5eead4;
++  --color-fg-brand-strong: #99f6e4;
++}
++
++/* Denser rows, joined into one card with dividers — upstream's own compact density (its `bit-compact:` rules), as sizes
++   and borders only. */
++bit-item [bit-item-content],
++bit-item bit-item-content {
++  padding-block: 0.25rem !important;
++}
++bit-item {
++  margin-bottom: 0 !important;
++  border-radius: 0 !important;
++}
++bit-item:first-of-type {
++  border-top-left-radius: 0.5rem !important;
++  border-top-right-radius: 0.5rem !important;
++}
++bit-item:last-of-type {
++  border-bottom-left-radius: 0.5rem !important;
++  border-bottom-right-radius: 0.5rem !important;
++}
++bit-item + bit-item {
++  border-top-width: 0 !important;
++}
++
++/* Small capital section labels. */
++bit-section-header h2 {
++  text-transform: uppercase;
++  letter-spacing: 0.07em;
++  font-size: 0.75rem !important;
++  font-weight: 650 !important;
++}
++
++/* An outlined Fill on a list row — the list layout's (in a `bit-item-action`) and the table layout's (in a `bit-cell`,
++   behind upstream's VFO1 flag, whose own `tw-border-0` this overrides; round 13 PR-LOW-014). */
++bit-item-action > button.tw-text-primary-600,
++bit-cell button.tw-text-primary-600[bitTypography] {
++  border: 1px solid rgb(var(--color-primary-600)) !important;
++  border-radius: 6px;
++  padding-block: 0.125rem;
++}

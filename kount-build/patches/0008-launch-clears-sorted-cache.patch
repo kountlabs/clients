@@ -1,0 +1,13 @@
+diff --git a/libs/common/src/vault/services/cipher.service.ts b/libs/common/src/vault/services/cipher.service.ts
+index f7e453e..2ceaa6f 100644
+--- a/libs/common/src/vault/services/cipher.service.ts
++++ b/libs/common/src/vault/services/cipher.service.ts
+@@ -811,6 +811,8 @@ export class CipherService implements CipherServiceAbstraction {
+     ciphersLocalData[id as CipherId] = { lastLaunched: currentTime, lastUsedDate: currentTime };
+ 
+     await this.localDataState(userId).update(() => ciphersLocalData);
++    // Kount: a launch must be seen by the next fill, not after the per-URL sorted list's 3-second cache expires.
++    this.clearSortedCiphers();
+ 
+     const decryptedCipherCache = await this.getDecryptedCiphers(userId);
+     if (!decryptedCipherCache) {

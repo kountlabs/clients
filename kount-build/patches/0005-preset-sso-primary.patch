@@ -1,0 +1,339 @@
+diff --git a/apps/browser/src/auth/popup/login/extension-login-component.service.ts b/apps/browser/src/auth/popup/login/extension-login-component.service.ts
+index 1e9defa..c9afd04 100644
+--- a/apps/browser/src/auth/popup/login/extension-login-component.service.ts
++++ b/apps/browser/src/auth/popup/login/extension-login-component.service.ts
+@@ -12,6 +12,7 @@ import { PasswordGenerationServiceAbstraction } from "@bitwarden/generator-legac
+ // eslint-disable-next-line no-restricted-imports
+ import { CryptoFunctionService } from "@bitwarden/legacy-crypto";
+ 
++import { kountHandOffRefused } from "../../../kount/kount-sign-in";
+ import { ExtensionAnonLayoutWrapperDataService } from "../../../popup/components/extension-anon-layout-wrapper/extension-anon-layout-wrapper-data.service";
+ 
+ @Injectable()
+@@ -51,6 +52,14 @@ export class ExtensionLoginComponentService
+     orgSsoIdentifier?: string,
+   ): Promise<void> {
+     const env = await firstValueFrom(this.environmentService.environment$);
++    // Kount: a sign-in the Kount screen started (the fixed identifier, no e-mail) is handed off only in a Kount
++    // environment, read again HERE — an active account's environment wins over the selection the button saw (Decision
++    // 1, E47). Otherwise no tab opens, the saved state and verifier are dropped, and the screen follows (LoginComponent).
++    if (kountHandOffRefused(orgSsoIdentifier, email, env)) {
++      await this.ssoLoginService.setCodeVerifier("");
++      await this.ssoLoginService.setSsoState("");
++      return;
++    }
+     const webVaultUrl = env.getWebVaultUrl();
+ 
+     const redirectUri = webVaultUrl + "/sso-connector.html";
+diff --git a/libs/auth/src/angular/login/login.component.html b/libs/auth/src/angular/login/login.component.html
+index 895927b..691d333 100644
+--- a/libs/auth/src/angular/login/login.component.html
++++ b/libs/auth/src/angular/login/login.component.html
+@@ -1,5 +1,7 @@
+ <form [bitSubmit]="submit" [formGroup]="formGroup">
+   <div [ngClass]="{ 'tw-hidden': loginUiState !== LoginUiState.EMAIL_ENTRY }">
++    <!-- Kount: on the Kount screen upstream's e-mail entry is hidden until the link (or a remembered e-mail) shows it. -->
++    <div [ngClass]="{ 'tw-hidden': kountOnly }" data-testid="kount-email-entry">
+     <!-- Email Address input -->
+     <bit-form-field>
+       <bit-label>{{ "emailAddress" | i18n }}</bit-label>
+@@ -27,6 +29,7 @@
+       />
+       <bit-label>{{ "rememberEmail" | i18n }}</bit-label>
+     </bit-form-control>
++    </div>
+ 
+     <div class="tw-grid tw-gap-3">
+       <!-- Continue button -->
+@@ -34,8 +37,9 @@
+         type="button"
+         bitButton
+         block
+-        buttonType="primary"
++        [buttonType]="kountScreen ? 'secondary' : 'primary'"
+         data-testid="login-continue-button"
++        [ngClass]="{ 'tw-hidden': kountOnly }"
+         (click)="continuePressed()"
+         [bitTooltip]="ssoRequired ? ('yourOrganizationRequiresSingleSignOn' | i18n) : ''"
+         [addTooltipToDescribedby]="ssoRequired"
+@@ -44,10 +48,10 @@
+         {{ "continue" | i18n }}
+       </button>
+ 
+-      <div class="tw-text-center">{{ "or" | i18n }}</div>
++      <div class="tw-text-center" [ngClass]="{ 'tw-hidden': kountOnly }">{{ "or" | i18n }}</div>
+ 
+       <!-- Button to Login with Passkey -->
+-      <ng-container *ngIf="isLoginWithPasskeySupported()">
++      <ng-container *ngIf="isLoginWithPasskeySupported() && !kountOnly">
+         <button
+           type="button"
+           bitButton
+@@ -69,13 +73,21 @@
+         type="button"
+         bitButton
+         block
+-        [buttonType]="ssoRequired ? 'primary' : 'secondary'"
++        [buttonType]="kountScreen || ssoRequired ? 'primary' : 'secondary'"
+         data-testid="login-sso-button"
+         (click)="handleSsoClick()"
+       >
+         <bit-icon name="bwi-provider" class="tw-mr-1"></bit-icon>
+-        {{ "useSingleSignOn" | i18n }}
++        <!-- Kount: Kount ID named only on the Kount screen; any other server keeps upstream's label (round 11 PR-LOW-004). -->
++        {{ (kountScreen ? "kountSignInWithKountId" : "useSingleSignOn") | i18n }}
+       </button>
++
++      <!-- Kount: the master-password path stays one click away (the store reviewers, members not yet linked — E2). -->
++      <div class="tw-text-center" *ngIf="kountOnly">
++        <button type="button" bitLink data-testid="kount-use-email-link" (click)="showKountEntry()">
++          {{ "kountUseEmailAndMasterPassword" | i18n }}
++        </button>
++      </div>
+     </div>
+   </div>
+ 
+diff --git a/libs/auth/src/angular/login/login.component.ts b/libs/auth/src/angular/login/login.component.ts
+index 589d6a3..0a8a5c3 100644
+--- a/libs/auth/src/angular/login/login.component.ts
++++ b/libs/auth/src/angular/login/login.component.ts
+@@ -3,6 +3,7 @@ import {
+   Component,
+   DestroyRef,
+   ElementRef,
++  inject,
+   NgZone,
+   OnDestroy,
+   OnInit,
+@@ -56,6 +57,13 @@ import {
+   TooltipDirective,
+ } from "@bitwarden/components";
+ 
++// Kount: the sign-in screen in a Kount environment (sign-in-lock-and-look Decision 1). Relative imports into the
++// browser app's Kount folder — this build compiles no other client.
++// eslint-disable-next-line no-restricted-imports
++import { KOUNT_SSO_IDENTIFIER } from "../../../../../apps/browser/src/kount/build-constants";
++// eslint-disable-next-line no-restricted-imports
++import { isKountEnvironment } from "../../../../../apps/browser/src/kount/kount-environment";
++
+ import { LoginComponentService, PasswordPolicies } from "./login-component.service";
+ 
+ const BroadcasterSubscriptionId = "LoginComponent";
+@@ -103,6 +111,18 @@ export class LoginComponent implements OnInit, OnDestroy {
+   isKnownDevice = false;
+   loginUiState: LoginUiState = LoginUiState.EMAIL_ENTRY;
+   ssoRequired = false;
++  /** Kount: the selected pre-login environment is a Kount environment (all three effective addresses the vault's). */
++  protected kountScreen = false;
++  /** Kount: the e-mail entry was revealed — by the link, a remembered e-mail or one given in the address. */
++  protected kountEntryShown = false;
++  /** Kount: the screen shows "Sign in with Kount ID" and the link only; upstream's e-mail entry is hidden. */
++  protected get kountOnly(): boolean {
++    return this.kountScreen && !this.kountEntryShown;
++  }
++  /** Kount: this view was destroyed — no subscription starts and a deferred focus does nothing (round 13 PR-LOW-013). */
++  private kountGone = false;
++  /** Kount: this component's own element — a deferred focus looks only inside it, never the whole document. */
++  private readonly kountHost: ElementRef<HTMLElement> = inject(ElementRef);
+ 
+   formGroup = this.formBuilder.group(
+     {
+@@ -186,6 +206,7 @@ export class LoginComponent implements OnInit, OnDestroy {
+       this.broadcasterService.unsubscribe(BroadcasterSubscriptionId);
+     }
+ 
++    this.kountGone = true;
+     this.destroy$.next();
+     this.destroy$.complete();
+   }
+@@ -203,6 +224,39 @@ export class LoginComponent implements OnInit, OnDestroy {
+       await this.loadRememberedEmail();
+     }
+ 
++    // Kount: a remembered or given e-mail shows upstream's entry at once; the screen follows the selected server.
++    if (this.emailFormControl.value) {
++      this.kountEntryShown = true;
++    }
++    // Both the selected server and the one in force (an active account's wins) must be Kount's: after a refused return
++    // the screen is the ordinary one at once (round 11 PR-MED-060); with no active account the two are the same. A view
++    // destroyed during the reads above subscribes to nothing (round 13 PR-LOW-013). Nothing waits for this: upstream's
++    // screen shows until the first pair arrives (round 14 withdrew round 13's readiness gate — PR-REG-002 to -004).
++    if (!this.kountGone) {
++      combineLatest([this.environmentService.globalEnvironment$, this.environmentService.environment$])
++        .pipe(takeUntil(this.destroy$))
++        .subscribe({
++          next: ([selected, inForce]) => {
++            const was = this.kountOnly;
++            this.kountScreen = isKountEnvironment(selected) && isKountEnvironment(inForce);
++            // An address already typed keeps the entry shown when the server becomes Kount's in this view (round 15
++            // PR-LOW-026), as a remembered or given one does at start.
++            if (this.kountScreen && this.emailFormControl.value) {
++              this.kountEntryShown = true;
++            }
++            if (!was && this.kountOnly) {
++              // The e-mail box (upstream's autofocus) is hidden: focus the primary button, so Enter starts the sign-in —
++              // unless the person has already put the focus on something else (round 14 PR-REG-004).
++              this.kountFocus('[data-testid="login-sso-button"]', true);
++            }
++          },
++          // An environment that can no longer be read is not a Kount one: upstream's screen (round 15 PR-LOW-027).
++          error: () => {
++            this.kountScreen = false;
++          },
++        });
++    }
++
+     // Check to see if the device is known so that we can show the Login with Device option
+     if (this.emailFormControl.value) {
+       await this.getKnownDevice(this.emailFormControl.value);
+@@ -730,6 +784,12 @@ export class LoginComponent implements OnInit, OnDestroy {
+    * @param event - The event object.
+    */
+   async handleSsoClick() {
++    // Kount: in a Kount environment single sign-on needs no e-mail — it sends the fixed identifier (Decision 1).
++    if (this.kountScreen) {
++      await this.kountSsoClick();
++      return;
++    }
++
+     // Make sure the email is valid
+     const isEmailValid = this.validateEmail();
+     if (!isEmailValid) {
+@@ -747,6 +807,49 @@ export class LoginComponent implements OnInit, OnDestroy {
+     await this.loginComponentService.redirectToSsoLogin(email);
+   }
+ 
++  /**
++   * Kount: "Sign in with Kount ID" with no e-mail. The hand-off reads the environment again (an active account's wins
++   * over the selection) and opens nothing outside a Kount environment (ExtensionLoginComponentService, E47); the
++   * screen then follows the environment in force.
++   */
++  private async kountSsoClick(): Promise<void> {
++    await this.loginComponentService.redirectToSsoLoginWithOrganizationSsoIdentifier("", KOUNT_SSO_IDENTIFIER);
++    if (!isKountEnvironment(await firstValueFrom(this.environmentService.environment$))) {
++      this.kountScreen = false;
++    }
++  }
++
++  /** Kount: the link "Use e-mail and master password" shows upstream's e-mail entry, unchanged (E2). */
++  protected showKountEntry(): void {
++    this.kountEntryShown = true;
++    this.kountFocus("#email");
++  }
++
++  /**
++   * Kount: a deferred focus inside THIS view only, and only while it lives (round 13 PR-LOW-013). An AUTOMATIC focus
++   * (`auto`) moves it only while nothing else holds it — the page body, nothing, or a control of this view — so a
++   * person who has already tabbed to the server selector keeps it there (round 14 PR-REG-004); the link's explicit
++   * move to the e-mail box always moves it.
++   */
++  private kountFocus(selector: string, auto = false): void {
++    setTimeout(() => {
++      if (this.kountGone) {
++        return;
++      }
++      const host = this.kountHost.nativeElement;
++      const active = host.ownerDocument.activeElement;
++      if (auto && active != null && active !== host.ownerDocument.body && !host.contains(active)) {
++        return;
++      }
++      // An automatic focus belongs to the Kount-only e-mail step: if the screen has changed since it was asked for,
++      // it does nothing (round 15 PR-LOW-028).
++      if (auto && !(this.kountOnly && this.loginUiState === LoginUiState.EMAIL_ENTRY)) {
++        return;
++      }
++      host.querySelector<HTMLElement>(selector)?.focus();
++    });
++  }
++
+   /**
+    * Call to check if the device is known.
+    * Known means that the user has logged in with this device before.
+@@ -847,6 +950,10 @@ export class LoginComponent implements OnInit, OnDestroy {
+     } else if (this.loginUiState === LoginUiState.EMAIL_ENTRY) {
+       // Prevent default navigation when the browser's forward button is clicked
+       event.preventDefault();
++      // Kount: never validate an e-mail entry that is not shown (E24).
++      if (this.kountOnly) {
++        return;
++      }
+       // Continue to the master password entry state
+       await this.continue();
+     }
+diff --git a/libs/auth/src/angular/sso/sso.component.ts b/libs/auth/src/angular/sso/sso.component.ts
+index 3242a18..d8955c0 100644
+--- a/libs/auth/src/angular/sso/sso.component.ts
++++ b/libs/auth/src/angular/sso/sso.component.ts
+@@ -49,6 +49,11 @@ import { PasswordGenerationServiceAbstraction } from "@bitwarden/generator-legac
+ // eslint-disable-next-line no-restricted-imports
+ import { CryptoFunctionService } from "@bitwarden/legacy-crypto";
+ 
++// Kount: the return leg of the Kount sign-in (sign-in-lock-and-look Decision 1). Relative imports into the browser app's
++// Kount folder — this build compiles no other client.
++// eslint-disable-next-line no-restricted-imports
++import { isKountReturn, kountReturnRefused } from "../../../../../apps/browser/src/kount/kount-sign-in";
++
+ import { SsoClientType, SsoComponentService } from "./sso-component.service";
+ 
+ interface QueryParams {
+@@ -239,6 +244,11 @@ export class SsoComponent implements OnInit {
+     // We set these in state prior to starting SSO, so we can retrieve them here
+     const codeVerifier = await this.ssoLoginService.getCodeVerifier();
+     const stateFromPrelogin = await this.ssoLoginService.getSsoState();
++    // Kount: the e-mail THIS attempt's start saved, read with its verifier and state, before anything is cleared — a
++    // start in another view afterwards cannot reclassify this attempt (round 11 PR-HIGH-032).
++    // An e-mail that cannot be read counts as none — a Kount return, refused unless both environments are Kount's —
++    // so the cleanup below still runs (round 15 PR-LOW-025).
++    const savedSsoEmail = await this.ssoLoginService.getSsoEmail().catch((): null => null);
+ 
+     // Reset the code verifier and state so we don't accidentally use them again
+     await this.ssoLoginService.setCodeVerifier("");
+@@ -257,10 +267,48 @@ export class SsoComponent implements OnInit {
+       this.verifyStateMatches(stateFromPrelogin, qParams.state ?? "")
+     ) {
+       const ssoOrganizationIdentifier = this.getOrgIdentifierFromState(qParams.state ?? "");
++      if (await this.refuseKountReturn(savedSsoEmail)) {
++        return;
++      }
+       await this.logIn(qParams.code, codeVerifier, ssoOrganizationIdentifier);
+     }
+   }
+ 
++  /**
++   * Kount (sign-in-lock-and-look Decision 1, E54): a sign-in the Kount screen started — recognised by its empty saved
++   * e-mail — redeems its code only while the environment is still a Kount environment (the selection and the one in
++   * force, which the token request reads afresh). Otherwise the code and the verifier (already cleared above) go
++   * nowhere and the ordinary sign-in screen is shown. Ordinary single sign-on (an e-mail saved) is not touched.
++   */
++  private async refuseKountReturn(savedEmail: string | null | undefined): Promise<boolean> {
++    // An ordinary return (upstream saved its e-mail) is never a Kount start: it goes on without the guard's reads.
++    if (!isKountReturn(savedEmail)) {
++      return false;
++    }
++    // A Kount start whose environments cannot be read is refused like a changed one — with the way back (round 14
++    // PR-LOW-020); nothing is redeemed either way.
++    let refused = true;
++    try {
++      refused = kountReturnRefused(
++        savedEmail,
++        await firstValueFrom(this.environmentService.globalEnvironment$),
++        await firstValueFrom(this.environmentService.environment$),
++      );
++    } catch {
++      refused = true;
++    }
++    if (!refused) {
++      return false;
++    }
++    this.toastService.showToast({
++      variant: "error",
++      title: this.i18nService.t("errorOccurred"),
++      message: this.i18nService.t("kountSignInServerChanged"),
++    });
++    await this.router.navigate(["/login"]);
++    return true;
++  }
++
+   /**
+    * Checks if the query params have a code and state, indicating that we've completed SSO authentication
+    * and have been redirected back to the SSO component on the originating client to complete login.

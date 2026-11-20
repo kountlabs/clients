@@ -1,0 +1,24 @@
+import { ConsoleLogService } from "@bitwarden/common/platform/services/console-log.service";
+
+import MainBackground from "../background/main.background";
+import { KOUNT_PROTECT_ORIGIN } from "../kount/build-constants";
+import { browserMarker, ProtectMarkerBackground } from "../kount/protect-marker.background";
+import { ProtectPickBackground } from "../kount/protect-pick.background";
+
+// Kount: the pick hook's listener is registered first and synchronously, so a tile launch that wakes the worker is heard.
+// The origin is passed here, its one use: build/check-artefacts.sh reads it back from this call in every package.
+const protectPick = ProtectPickBackground.listen(chrome.webRequest as any, KOUNT_PROTECT_ORIGIN);
+// Kount: the page marker, from the pick hook's own origin (never the constant again), registered synchronously too.
+const protectMarker = ProtectMarkerBackground.listen(
+  protectPick.protectOrigin,
+  browserMarker(chrome, (globalThis as any).browser),
+);
+const logService = new ConsoleLogService(false);
+const bitwardenMain = ((self as any).bitwardenMain = new MainBackground());
+bitwardenMain
+  .bootstrap()
+  .then(() => {
+    protectPick.attach(bitwardenMain as any);
+    protectMarker?.attach(bitwardenMain as any);
+  })
+  .catch((error) => logService.error(error));

@@ -1,0 +1,5 @@
+# The upstream the Kount extension builds on. KEY=VALUE, one per line; read by build/apply.sh (never sourced).
+# A rebase edits these lines in one PR (Flow 4 of .cursor/plans/plan-platform-kount-protect-extension.md).
+UPSTREAM_REPO=https://github.com/bitwarden/clients.git
+UPSTREAM_TAG=browser-v2026.11.0
+UPSTREAM_COMMIT=28b247ac34877882aaef4faea082a9f3bb201114

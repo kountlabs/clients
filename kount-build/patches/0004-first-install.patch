@@ -1,0 +1,39 @@
+diff --git a/apps/browser/src/background/runtime.background.ts b/apps/browser/src/background/runtime.background.ts
+index 9f7e45a7..20cdf876 100644
+--- a/apps/browser/src/background/runtime.background.ts
++++ b/apps/browser/src/background/runtime.background.ts
+@@ -7,6 +7,7 @@ import { AutofillOverlayVisibility, ExtensionCommand } from "@bitwarden/common/a
+ import { AutofillSettingsServiceAbstraction } from "@bitwarden/common/autofill/services/autofill-settings.service";
+ import { BillingAccountProfileStateService } from "@bitwarden/common/billing/abstractions/account/billing-account-profile-state.service";
+ import { ConfigService } from "@bitwarden/common/platform/abstractions/config/config.service";
++import { Region } from "@bitwarden/common/platform/abstractions/environment.service";
+ import { LogService } from "@bitwarden/common/platform/abstractions/log.service";
+ import { MessagingService } from "@bitwarden/common/platform/abstractions/messaging.service";
+ import {
+@@ -47,6 +48,7 @@ import { AutofillService } from "../autofill/services/abstractions/autofill.serv
+ import { FORCE_TARGETING_RULES_UPDATE_COMMAND } from "../autofill/services/targeting-rules-data.service";
+ import { AUTOFILL_DENIED } from "../autofill/types/fill-result";
+ import { getSubFrameUrlVariations } from "../autofill/utils/url-variations";
++import { KOUNT_VAULT_BASE } from "../kount/build-constants";
+ import { BrowserApi } from "../platform/browser/browser-api";
+ import BrowserPopupUtils from "../platform/browser/browser-popup-utils";
+ import { BrowserEnvironmentService } from "../platform/services/browser-environment.service";
+@@ -626,7 +628,7 @@ export default class RuntimeBackground {
+           }
+ 
+           if (!(await firstValueFrom(this.browserInitialInstallService.extensionInstalled$))) {
+-            await this.browserInitialInstallService.displayWelcomePage();
++            // Kount: no welcome page (upstream opens bitwarden.com/browser-start).
+ 
+             await this.autofillSettingsService.setInlineMenuVisibility(
+               AutofillOverlayVisibility.OnFieldFocus,
+@@ -634,6 +636,9 @@ export default class RuntimeBackground {
+ 
+             if (await this.environmentService.hasManagedEnvironment()) {
+               await this.environmentService.setUrlsToManagedEnvironment();
++            } else {
++              // Kount: the built-in default is the Kount vault; a managed policy, if one exists, still wins above.
++              await this.environmentService.setEnvironment(Region.SelfHosted, { base: KOUNT_VAULT_BASE });
+             }
+             await this.browserInitialInstallService.setExtensionInstalled(true);
+           }

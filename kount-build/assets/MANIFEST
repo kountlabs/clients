@@ -1,0 +1,38 @@
+# Binary files that replace upstream's at the same path (plan Decision 1). One path per line; apply.sh refuses any file
+# under assets/ that is not named here, any line naming a file that is not here, and any path that is not under
+# apps/browser/src/images/ or replaces nothing upstream. Drawn by build/tools/icons.cjs from Kount Protect's mark
+# (build/tools/kount-mark.cjs). The last eleven replace upstream images that drew Bitwarden's shield or wordmark, or
+# showed another company's store badge on an unlinked page (plan T3.8); Safari's toolbar icons and the two wordmark
+# pictures under popup/images/ are left out of the build instead (patch 0003's copy filters).
+apps/browser/src/images/icon16.png
+apps/browser/src/images/icon19.png
+apps/browser/src/images/icon32.png
+apps/browser/src/images/icon38.png
+apps/browser/src/images/icon48.png
+apps/browser/src/images/icon96.png
+apps/browser/src/images/icon128.png
+apps/browser/src/images/icon16_gray.png
+apps/browser/src/images/icon19_gray.png
+apps/browser/src/images/icon32_gray.png
+apps/browser/src/images/icon38_gray.png
+apps/browser/src/images/icon48_gray.png
+apps/browser/src/images/icon96_gray.png
+apps/browser/src/images/icon128_gray.png
+apps/browser/src/images/icon19_locked.png
+apps/browser/src/images/icon38_locked.png
+# The at-risk badge (upstream's "berry": Bitwarden's shield with a dot).
+apps/browser/src/images/berry19.png
+apps/browser/src/images/berry38.png
+# The unlinked "Download … apps" page: Apple's and Google's store badges and a code leading to Bitwarden's apps —
+# transparent pictures of the same size.
+apps/browser/src/images/app-store.png
+apps/browser/src/images/google-play.png
+apps/browser/src/images/download-qr.png
+# The "what changed" dialog's screenshots of Bitwarden's interface (its wordmark) — the Kount mark and name.
+apps/browser/src/images/new-experience/new-experience.light.png
+apps/browser/src/images/new-experience/new-experience.dark.png
+# The at-risk passwords carousel's two pictures that drew Bitwarden's shield — redrawn with the Kount mark.
+apps/browser/src/images/at-risk-password-carousel/generate_password.light.png
+apps/browser/src/images/at-risk-password-carousel/generate_password.dark.png
+apps/browser/src/images/at-risk-password-carousel/update_login.light.png
+apps/browser/src/images/at-risk-password-carousel/update_login.dark.png

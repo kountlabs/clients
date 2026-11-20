@@ -1,0 +1,1027 @@
+diff --git a/apps/browser/src/_locales/en/messages.json b/apps/browser/src/_locales/en/messages.json
+index 3c9a32e..d5f7df1 100644
+--- a/apps/browser/src/_locales/en/messages.json
++++ b/apps/browser/src/_locales/en/messages.json
+@@ -1,20 +1,29 @@
+ {
++  "kountUseEmailAndMasterPassword": {
++    "message": "Use e-mail and master password"
++  },
++  "kountSignInServerChanged": {
++    "message": "The server changed while you were signing in. Sign in again."
++  },
++  "kountSignInWithKountId": {
++    "message": "Sign in with Kount ID"
++  },
+   "appName": {
+-    "message": "Bitwarden"
++    "message": "Kount Protect"
+   },
+   "appLogoLabel": {
+-    "message": "Bitwarden logo"
++    "message": "Kount Protect logo"
+   },
+   "extName": {
+-    "message": "Bitwarden Password Manager",
++    "message": "Kount Protect",
+     "description": "Extension name, MUST be less than 40 characters (Safari restriction)"
+   },
+   "extNameBeta": {
+-    "message": "Bitwarden Password Manager Beta",
++    "message": "Kount Protect Password Manager Beta",
+     "description": "Extension name for the beta channel, MUST be less than 40 characters (Safari restriction)"
+   },
+   "extDesc": {
+-    "message": "At home, at work, or on the go, Bitwarden easily secures all your passwords, passkeys, and sensitive information",
++    "message": "Kount's password manager for staff: signs in with Kount ID and fills the login picked on a Kount Protect tile.",
+     "description": "Extension description, MUST be less than 112 characters (Safari restriction)"
+   },
+   "loginOrCreateNewAccount": {
+@@ -27,7 +36,7 @@
+     "message": "Create account"
+   },
+   "newToBitwarden": {
+-    "message": "New to Bitwarden?"
++    "message": "New to Kount Protect?"
+   },
+   "logInWithPasskey": {
+     "message": "Log in with passkey"
+@@ -324,22 +333,22 @@
+     "message": "Continue to web app?"
+   },
+   "continueToWebAppDesc": {
+-    "message": "Explore more features of your Bitwarden account on the web app."
++    "message": "Explore more features of your Kount Protect account on the web app."
+   },
+   "continueToHelpCenter": {
+     "message": "Continue to Help Center?"
+   },
+   "continueToHelpCenterDesc": {
+-    "message": "Learn more about how to use Bitwarden on the Help Center."
++    "message": "Learn more about how to use Kount Protect on the Help Center."
+   },
+   "continueToBrowserExtensionStore": {
+     "message": "Continue to browser extension store?"
+   },
+   "continueToBrowserExtensionStoreDesc": {
+-    "message": "Help others find out if Bitwarden is right for them. Visit your browser's extension store and leave a rating now."
++    "message": "Help others find out if Kount Protect is right for them. Visit your browser's extension store and leave a rating now."
+   },
+   "changeMasterPasswordOnWebConfirmation": {
+-    "message": "You can change your master password on the Bitwarden web app."
++    "message": "You can change your master password on the Kount Protect web app."
+   },
+   "fingerprintPhrase": {
+     "message": "Fingerprint phrase",
+@@ -356,13 +365,13 @@
+     "message": "Log out"
+   },
+   "aboutBitwarden": {
+-    "message": "About Bitwarden"
++    "message": "About Kount Protect"
+   },
+   "about": {
+     "message": "About"
+   },
+   "moreFromBitwarden": {
+-    "message": "More from Bitwarden"
++    "message": "More from Kount Protect"
+   },
+   "continueToBitwardenDotCom": {
+     "message": "Continue to bitwarden.com?"
+@@ -458,13 +467,13 @@
+     "message": "Help & feedback"
+   },
+   "helpCenter": {
+-    "message": "Bitwarden Help center"
++    "message": "Kount Protect Help center"
+   },
+   "communityForums": {
+-    "message": "Explore Bitwarden community forums"
++    "message": "Explore Kount Protect community forums"
+   },
+   "contactSupport": {
+-    "message": "Contact Bitwarden support"
++    "message": "Contact Kount Protect support"
+   },
+   "sync": {
+     "message": "Sync"
+@@ -486,7 +495,7 @@
+     "message": "Automatically generate strong, unique passwords for your logins."
+   },
+   "bitWebVaultApp": {
+-    "message": "Bitwarden web app"
++    "message": "Kount Protect web app"
+   },
+   "select": {
+     "message": "Select"
+@@ -864,8 +873,8 @@
+     "message": "Download then share the diagnostic report with"
+   },
+   "bitwardenSupport": {
+-    "message": "Bitwarden support",
+-    "description": "Link text following the troubleshooting description sentence. 'Bitwarden' should not be translated."
++    "message": "Kount Protect support",
++    "description": "Link text following the troubleshooting description sentence. 'Kount Protect' should not be translated."
+   },
+   "download": {
+     "message": "Download"
+@@ -1081,10 +1090,10 @@
+     "message": "Make 2-step verification seamless"
+   },
+   "totpHelper": {
+-    "message": "Bitwarden can store and fill 2-step verification codes. Copy and paste the key into this field."
++    "message": "Kount Protect can store and fill 2-step verification codes. Copy and paste the key into this field."
+   },
+   "totpHelperWithCapture": {
+-    "message": "Bitwarden can store and fill 2-step verification codes. Select the camera icon to take a screenshot of this website's authenticator QR code, or copy and paste the key into this field."
++    "message": "Kount Protect can store and fill 2-step verification codes. Select the camera icon to take a screenshot of this website's authenticator QR code, or copy and paste the key into this field."
+   },
+   "learnMoreAboutAuthenticators": {
+     "message": "Learn more about authenticators"
+@@ -1171,10 +1180,10 @@
+     "message": "Enter a name."
+   },
+   "twoStepLoginConfirmation": {
+-    "message": "Two-step login makes your account more secure by requiring you to verify your login with another device such as a security key, authenticator app, SMS, phone call, or email. Two-step login can be set up on the bitwarden.com web vault. Do you want to visit the website now?"
++    "message": "Two-step login makes your account more secure by requiring you to verify your login with another device such as a security key, authenticator app, SMS, phone call, or email. Two-step login can be set up in the web vault. Do you want to visit the website now?"
+   },
+   "twoStepLoginConfirmationContent": {
+-    "message": "Make your account more secure by setting up two-step login in the Bitwarden web app."
++    "message": "Make your account more secure by setting up two-step login in the Kount Protect web app."
+   },
+   "twoStepLoginConfirmationTitle": {
+     "message": "Continue to web app?"
+@@ -1333,7 +1342,7 @@
+     "message": "Jump to setting"
+   },
+   "notificationAddDesc": {
+-    "message": "Should Bitwarden remember this password for you?"
++    "message": "Should Kount Protect remember this password for you?"
+   },
+   "notificationAddSave": {
+     "message": "Save"
+@@ -1369,11 +1378,11 @@
+     }
+   },
+   "notificationLoginSaveConfirmation": {
+-    "message": "saved to Bitwarden.",
++    "message": "saved to Kount Protect.",
+     "description": "Shown to user after item is saved."
+   },
+   "notificationLoginUpdatedConfirmation": {
+-    "message": "updated in Bitwarden.",
++    "message": "updated in Kount Protect.",
+     "description": "Shown to user after item is updated."
+   },
+   "selectItemAriaLabel": {
+@@ -1471,13 +1480,13 @@
+     "message": "Ask to save new passkeys or log in with passkeys stored in your vault. Applies to all logged in accounts."
+   },
+   "notificationChangeDesc": {
+-    "message": "Do you want to update this password in Bitwarden?"
++    "message": "Do you want to update this password in Kount Protect?"
+   },
+   "notificationChangeSave": {
+     "message": "Update"
+   },
+   "notificationUnlockDesc": {
+-    "message": "Unlock your Bitwarden vault to complete the autofill request."
++    "message": "Unlock your Kount Protect vault to complete the autofill request."
+   },
+   "notificationUnlock": {
+     "message": "Unlock"
+@@ -1786,10 +1795,10 @@
+     "message": "This password will be used to export and import this file"
+   },
+   "accountRestrictedOptionDescription": {
+-    "message": "Use your account encryption key, derived from your account's username and Master Password, to encrypt the export and restrict import to only the current Bitwarden account."
++    "message": "Use your account encryption key, derived from your account's username and Master Password, to encrypt the export and restrict import to only the current Kount Protect account."
+   },
+   "passwordProtectedOptionDescription": {
+-    "message": "Set a file password to encrypt the export and import it to any Bitwarden account using the password for decryption."
++    "message": "Set a file password to encrypt the export and import it to any Kount Protect account using the password for decryption."
+   },
+   "exportTypeHeading": {
+     "message": "Export type"
+@@ -1818,7 +1827,7 @@
+     "message": "This export encrypts your data using your account's encryption key. If you ever rotate your account's encryption key you should export again since you will not be able to decrypt this export file."
+   },
+   "encExportAccountWarningDesc": {
+-    "message": "Account encryption keys are unique to each Bitwarden user account, so you can't import an encrypted export into a different account."
++    "message": "Account encryption keys are unique to each Kount Protect user account, so you can't import an encrypted export into a different account."
+   },
+   "exportMasterPassword": {
+     "message": "Enter your master password to export your vault data."
+@@ -1996,7 +2005,7 @@
+     "message": "Manage membership"
+   },
+   "premiumManageAlert": {
+-    "message": "You can manage your membership on the bitwarden.com web vault. Do you want to visit the website now?"
++    "message": "You can manage your membership in the web vault. Do you want to visit the website now?"
+   },
+   "premiumRefresh": {
+     "message": "Refresh membership"
+@@ -2044,7 +2053,7 @@
+     "message": "Purchase Premium"
+   },
+   "premiumPurchaseAlertV2": {
+-    "message": "You can purchase Premium from your account settings on the Bitwarden web app."
++    "message": "You can purchase Premium from your account settings on the Kount Protect web app."
+   },
+   "premiumFeatures": {
+     "message": "Upgrade to Premium and receive:"
+@@ -2183,7 +2192,7 @@
+     "message": "Self-hosted environment"
+   },
+   "selfHostedBaseUrlHint": {
+-    "message": "Specify the base URL of your on-premises hosted Bitwarden installation. Example: https://bitwarden.company.com"
++    "message": "Specify the base URL of your on-premises hosted Kount Protect installation. Example: https://vault.example.com"
+   },
+   "selfHostedCustomEnvHeader": {
+     "message": "For advanced configuration, you can specify the base URL of each service independently."
+@@ -2236,7 +2245,7 @@
+     "message": "Easily find autofill suggestions"
+   },
+   "autofillSpotlightDesc": {
+-    "message": "Turn off your browser's autofill settings, so they don't conflict with Bitwarden."
++    "message": "Turn off your browser's autofill settings, so they don't conflict with Kount Protect."
+   },
+   "turnOffBrowserAutofill": {
+     "message": "Turn off $BROWSER$ autofill",
+@@ -2293,7 +2302,7 @@
+     "message": "Show autofill suggestions on form fields"
+   },
+   "howDoesBitwardenProtectFromPhishing": {
+-    "message": "How does Bitwarden protect your data from phishing?"
++    "message": "How does Kount Protect protect your data from phishing?"
+   },
+   "currentWebsite": {
+     "message": "Current website"
+@@ -3202,7 +3211,7 @@
+     "message": "Weak master password"
+   },
+   "weakMasterPasswordDesc": {
+-    "message": "The master password you have chosen is weak. You should use a strong master password (or a passphrase) to properly protect your Bitwarden account. Are you sure you want to use this master password?"
++    "message": "The master password you have chosen is weak. You should use a strong master password (or a passphrase) to properly protect your Kount Protect account. Are you sure you want to use this master password?"
+   },
+   "rotateAccountEncKey": {
+     "message": "Also rotate my account's encryption key"
+@@ -3214,7 +3223,7 @@
+     "message": "Are you sure you want to rotate your account's encryption key?"
+   },
+   "updateEncryptionKeyWarning": {
+-    "message": "After updating your encryption key, you are required to log out and back in to all Bitwarden applications that you are currently using (such as the mobile app or browser extensions). Failure to log out and back in (which downloads your new encryption key) may result in data corruption. We will attempt to log you out automatically, however, it may be delayed."
++    "message": "After updating your encryption key, you are required to log out and back in to all Kount Protect applications that you are currently using (such as the mobile app or browser extensions). Failure to log out and back in (which downloads your new encryption key) may result in data corruption. We will attempt to log you out automatically, however, it may be delayed."
+   },
+   "updateEncryptionKeyAccountExportWarning": {
+     "message": "Any account restricted exports you have saved will become invalid."
+@@ -3242,10 +3251,10 @@
+     "message": "Set PIN"
+   },
+   "setYourPinCode": {
+-    "message": "Set your PIN code for unlocking Bitwarden. Your PIN settings will be reset if you ever fully log out of the application."
++    "message": "Set your PIN code for unlocking Kount Protect. Your PIN settings will be reset if you ever fully log out of the application."
+   },
+   "setPinCode": {
+-    "message": "You can use this PIN to unlock Bitwarden. Your PIN will be reset if you ever fully log out of the application."
++    "message": "You can use this PIN to unlock Kount Protect. Your PIN will be reset if you ever fully log out of the application."
+   },
+   "pinRequired": {
+     "message": "PIN code is required."
+@@ -3266,7 +3275,7 @@
+     "message": "Awaiting confirmation from desktop"
+   },
+   "awaitDesktopDesc": {
+-    "message": "Please confirm using biometrics in the Bitwarden desktop application to set up biometrics for browser."
++    "message": "Please confirm using biometrics in the Kount Protect desktop application to set up biometrics for browser."
+   },
+   "lockWithMasterPassOnRestart": {
+     "message": "Lock with master password on browser restart"
+@@ -3381,7 +3390,7 @@
+     "message": "The form is hosted by a different domain than the URI of your saved login. Choose OK to autofill anyway, or Cancel to stop."
+   },
+   "autofillIframeWarningTip": {
+-    "message": "To prevent this warning in the future, save this URI, $HOSTNAME$, to your Bitwarden login item for this site.",
++    "message": "To prevent this warning in the future, save this URI, $HOSTNAME$, to your Kount Protect login item for this site.",
+     "placeholders": {
+       "hostname": {
+         "content": "$1",
+@@ -3390,7 +3399,7 @@
+     }
+   },
+   "topLayerHijackWarning": {
+-    "message": "This page is interfering with the Bitwarden experience. The Bitwarden inline menu has been temporarily disabled as a safety measure."
++    "message": "This page is interfering with the Kount Protect experience. The Kount Protect inline menu has been temporarily disabled as a safety measure."
+   },
+   "setMasterPassword": {
+     "message": "Set master password"
+@@ -3447,7 +3456,7 @@
+     "message": "Your new master password does not meet the policy requirements."
+   },
+   "receiveMarketingEmails": {
+-    "message": "Receive updates from Bitwarden in your inbox."
++    "message": "Receive updates from Kount Protect in your inbox."
+   },
+   "unsubscribe": {
+     "message": "Unsubscribe"
+@@ -3492,13 +3501,13 @@
+     "message": "Browser integration is not set up"
+   },
+   "desktopIntegrationDisabledDesc": {
+-    "message": "Browser integration is not set up in the Bitwarden desktop application. Please set it up in the settings within the desktop application."
++    "message": "Browser integration is not set up in the Kount Protect desktop application. Please set it up in the settings within the desktop application."
+   },
+   "startDesktopTitle": {
+-    "message": "Start the Bitwarden desktop application"
++    "message": "Start the Kount Protect desktop application"
+   },
+   "startDesktopDesc": {
+-    "message": "The Bitwarden desktop application needs to be started before unlock with biometrics can be used."
++    "message": "The Kount Protect desktop application needs to be started before unlock with biometrics can be used."
+   },
+   "errorEnableBiometricTitle": {
+     "message": "Unable to set up biometrics"
+@@ -3552,13 +3561,13 @@
+     "message": "Biometrics failed"
+   },
+   "biometricsFailedDesc": {
+-    "message": "Biometrics cannot be completed, consider using a master password or logging out. If this persists, please contact Bitwarden support."
++    "message": "Biometrics cannot be completed, consider using a master password or logging out. If this persists, please contact Kount Protect support."
+   },
+   "nativeMessagingPermissionErrorTitle": {
+     "message": "Permission not provided"
+   },
+   "nativeMessagingPermissionErrorDesc": {
+-    "message": "Without permission to communicate with the Bitwarden Desktop Application we cannot provide biometrics in the browser extension. Please try again."
++    "message": "Without permission to communicate with the Kount Protect Desktop Application we cannot provide biometrics in the browser extension. Please try again."
+   },
+   "nativeMessagingPermissionSidebarTitle": {
+     "message": "Permission request error"
+@@ -3595,7 +3604,7 @@
+     "message": "Excluded domains"
+   },
+   "excludedDomainsDesc": {
+-    "message": "Bitwarden will not ask to save login details for these domains. You must refresh the page for changes to take effect."
++    "message": "Kount Protect will not ask to save login details for these domains. You must refresh the page for changes to take effect."
+   },
+   "blockedDomainsDesc": {
+     "message": "Autofill and other related features will not be offered for these websites. You must refresh the page for changes to take effect."
+@@ -3727,24 +3736,24 @@
+     "message": "Illustration of a list of logins that are at-risk."
+   },
+   "welcomeDialogGraphicAlt": {
+-    "message": "Illustration of the layout of the Bitwarden vault page."
++    "message": "Illustration of the layout of the Kount Protect vault page."
+   },
+   "generatePasswordSlideDesc": {
+-    "message": "Quickly generate a strong, unique password with the Bitwarden autofill menu on the at-risk site.",
++    "message": "Quickly generate a strong, unique password with the Kount Protect autofill menu on the at-risk site.",
+     "description": "Description of the generate password slide on the at-risk password page carousel"
+   },
+   "generatePasswordSlideImgAltPeriod": {
+-    "message": "Illustration of the Bitwarden autofill menu displaying a generated password."
++    "message": "Illustration of the Kount Protect autofill menu displaying a generated password."
+   },
+   "updateInBitwarden": {
+-    "message": "Update in Bitwarden"
++    "message": "Update in Kount Protect"
+   },
+   "updateInBitwardenSlideDesc": {
+-    "message": "Bitwarden will then prompt you to update the password in the password manager.",
+-    "description": "Description of the update in Bitwarden slide on the at-risk password page carousel"
++    "message": "Kount Protect will then prompt you to update the password in the password manager.",
++    "description": "Description of the update in Kount Protect slide on the at-risk password page carousel"
+   },
+   "updateInBitwardenSlideImgAltPeriod": {
+-    "message": "Illustration of a Bitwarden’s notification prompting the user to update the login."
++    "message": "Illustration of a Kount Protect’s notification prompting the user to update the login."
+   },
+   "turnOnAutofill": {
+     "message": "Turn on autofill"
+@@ -3798,11 +3807,11 @@
+   },
+   "send": {
+     "message": "Send",
+-    "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
++    "description": "'Send' is a noun and the name of a feature called 'Kount Protect Send'. It should not be translated."
+   },
+   "sendDetails": {
+     "message": "Send details",
+-    "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
++    "description": "'Send' is a noun and the name of a feature called 'Kount Protect Send'. It should not be translated."
+   },
+   "sendTypeText": {
+     "message": "Text"
+@@ -3815,7 +3824,7 @@
+   },
+   "allSends": {
+     "message": "All Sends",
+-    "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
++    "description": "'Send' is a noun and the name of a feature called 'Kount Protect Send'. It should not be translated."
+   },
+   "maxAccessCountReached": {
+     "message": "Max access count reached",
+@@ -3835,7 +3844,7 @@
+   },
+   "copySendLink": {
+     "message": "Copy Send link",
+-    "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
++    "description": "'Send' is a noun and the name of a feature called 'Kount Protect Send'. It should not be translated."
+   },
+   "removeAuth": {
+     "message": "Remove Password or Email Verification"
+@@ -3848,11 +3857,11 @@
+   },
+   "deletedSend": {
+     "message": "Send deleted",
+-    "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
++    "description": "'Send' is a noun and the name of a feature called 'Kount Protect Send'. It should not be translated."
+   },
+   "sendLink": {
+     "message": "Send link",
+-    "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
++    "description": "'Send' is a noun and the name of a feature called 'Kount Protect Send'. It should not be translated."
+   },
+   "disabled": {
+     "message": "Disabled"
+@@ -3874,34 +3883,34 @@
+   },
+   "removeSendPasswordConfirmation": {
+     "message": "Are you sure you want to remove the password requirement from this Send?",
+-    "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
++    "description": "'Send' is a noun and the name of a feature called 'Kount Protect Send'. It should not be translated."
+   },
+   "removeSendEmailVerificationConfirmation": {
+     "message": "Are you sure you want to remove the email verification requirement from this Send?",
+-    "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
++    "description": "'Send' is a noun and the name of a feature called 'Kount Protect Send'. It should not be translated."
+   },
+   "deleteSend": {
+     "message": "Delete Send",
+-    "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
++    "description": "'Send' is a noun and the name of a feature called 'Kount Protect Send'. It should not be translated."
+   },
+   "deleteSendConfirmation": {
+     "message": "Are you sure you want to delete this Send?",
+-    "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
++    "description": "'Send' is a noun and the name of a feature called 'Kount Protect Send'. It should not be translated."
+   },
+   "deleteSendPermanentConfirmation": {
+     "message": "Are you sure you want to permanently delete this Send?",
+-    "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
++    "description": "'Send' is a noun and the name of a feature called 'Kount Protect Send'. It should not be translated."
+   },
+   "editSend": {
+     "message": "Edit Send",
+-    "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
++    "description": "'Send' is a noun and the name of a feature called 'Kount Protect Send'. It should not be translated."
+   },
+   "deletionDate": {
+     "message": "Deletion date"
+   },
+   "deletionDateDescV2": {
+     "message": "The Send will be permanently deleted on this date.",
+-    "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
++    "description": "'Send' is a noun and the name of a feature called 'Kount Protect Send'. It should not be translated."
+   },
+   "expirationDate": {
+     "message": "Expiration date"
+@@ -3923,38 +3932,38 @@
+   },
+   "createSend": {
+     "message": "New Send",
+-    "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
++    "description": "'Send' is a noun and the name of a feature called 'Kount Protect Send'. It should not be translated."
+   },
+   "createSendV2": {
+     "message": "Create Send",
+-    "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
++    "description": "'Send' is a noun and the name of a feature called 'Kount Protect Send'. It should not be translated."
+   },
+   "newPassword": {
+     "message": "New password"
+   },
+   "sendDisabled": {
+     "message": "Send removed",
+-    "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
++    "description": "'Send' is a noun and the name of a feature called 'Kount Protect Send'. It should not be translated."
+   },
+   "sendDisabledWarning": {
+     "message": "Due to an enterprise policy, you are only able to delete an existing Send.",
+-    "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
++    "description": "'Send' is a noun and the name of a feature called 'Kount Protect Send'. It should not be translated."
+   },
+   "createdSend": {
+     "message": "Send created",
+-    "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
++    "description": "'Send' is a noun and the name of a feature called 'Kount Protect Send'. It should not be translated."
+   },
+   "createdSendSuccessfully": {
+     "message": "Send created successfully!",
+-    "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
++    "description": "'Send' is a noun and the name of a feature called 'Kount Protect Send'. It should not be translated."
+   },
+   "sendExpiresInHoursSingle": {
+     "message": "The Send will be available to anyone with the link for the next 1 hour.",
+-    "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
++    "description": "'Send' is a noun and the name of a feature called 'Kount Protect Send'. It should not be translated."
+   },
+   "sendExpiresInHours": {
+     "message": "The Send will be available to anyone with the link for the next $HOURS$ hours.",
+-    "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated.",
++    "description": "'Send' is a noun and the name of a feature called 'Kount Protect Send'. It should not be translated.",
+     "placeholders": {
+       "hours": {
+         "content": "$1",
+@@ -3964,11 +3973,11 @@
+   },
+   "sendExpiresInDaysSingle": {
+     "message": "The Send will be available to anyone with the link for the next 1 day.",
+-    "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
++    "description": "'Send' is a noun and the name of a feature called 'Kount Protect Send'. It should not be translated."
+   },
+   "sendExpiresInDays": {
+     "message": "The Send will be available to anyone with the link for the next $DAYS$ days.",
+-    "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated.",
++    "description": "'Send' is a noun and the name of a feature called 'Kount Protect Send'. It should not be translated.",
+     "placeholders": {
+       "days": {
+         "content": "$1",
+@@ -3987,7 +3996,7 @@
+   },
+   "sendCreatedDescriptionV2": {
+     "message": "Copy and share this Send link. The Send will be available to anyone with the link for the next $TIME$.",
+-    "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated.",
++    "description": "'Send' is a noun and the name of a feature called 'Kount Protect Send'. It should not be translated.",
+     "placeholders": {
+       "time": {
+         "content": "$1",
+@@ -3997,7 +4006,7 @@
+   },
+   "sendCreatedDescriptionPassword": {
+     "message": "Copy and share this Send link. The Send will be available to anyone with the link and password you set for the next $TIME$.",
+-    "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated.",
++    "description": "'Send' is a noun and the name of a feature called 'Kount Protect Send'. It should not be translated.",
+     "placeholders": {
+       "time": {
+         "content": "$1",
+@@ -4007,7 +4016,7 @@
+   },
+   "sendCreatedDescriptionEmail": {
+     "message": "Copy and share this Send link. It can be viewed by the people you specified for the next $TIME$.",
+-    "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated.",
++    "description": "'Send' is a noun and the name of a feature called 'Kount Protect Send'. It should not be translated.",
+     "placeholders": {
+       "time": {
+         "content": "$1",
+@@ -4017,11 +4026,11 @@
+   },
+   "sendLinkCopied": {
+     "message": "Send link copied",
+-    "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
++    "description": "'Send' is a noun and the name of a feature called 'Kount Protect Send'. It should not be translated."
+   },
+   "editedSend": {
+     "message": "Send saved",
+-    "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
++    "description": "'Send' is a noun and the name of a feature called 'Kount Protect Send'. It should not be translated."
+   },
+   "popOut": {
+     "message": "Pop out"
+@@ -4279,10 +4288,10 @@
+     "message": "Error getting autofill data"
+   },
+   "couldNotDecryptVaultItem": {
+-    "message": "Bitwarden could not decrypt the vault item listed below. Contact Bitwarden Customer Support and provide the item ID below to see if it can be recovered."
++    "message": "Kount Protect could not decrypt the vault item listed below. Contact Kount Protect Customer Support and provide the item ID below to see if it can be recovered."
+   },
+   "couldNotDecryptVaultItems": {
+-    "message": "Bitwarden could not decrypt the vault items listed below. Contact Bitwarden Customer Support and provide the item IDs below to see if they can be recovered."
++    "message": "Kount Protect could not decrypt the vault items listed below. Contact Kount Protect Customer Support and provide the item IDs below to see if they can be recovered."
+   },
+   "itemId": {
+     "message": "Item ID",
+@@ -4392,11 +4401,11 @@
+     }
+   },
+   "forwarderGeneratedBy": {
+-    "message": "Generated by Bitwarden.",
++    "message": "Generated by Kount Protect.",
+     "description": "Displayed with the address on the forwarding service's configuration screen."
+   },
+   "forwarderGeneratedByWithWebsite": {
+-    "message": "Website: $WEBSITE$. Generated by Bitwarden.",
++    "message": "Website: $WEBSITE$. Generated by Kount Protect.",
+     "description": "Displayed with the address on the forwarding service's configuration screen.",
+     "placeholders": {
+       "WEBSITE": {
+@@ -4618,7 +4627,7 @@
+     "message": "A notification has been sent to your device."
+   },
+   "notificationSentDevicePart1": {
+-    "message": "Unlock Bitwarden on your device or on the"
++    "message": "Unlock Kount Protect on your device or on the"
+   },
+   "notificationSentDeviceAnchor": {
+     "message": "web app"
+@@ -4976,11 +4985,11 @@
+   },
+   "sendsTitleNoItems": {
+     "message": "Send sensitive information safely",
+-    "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
++    "description": "'Send' is a noun and the name of a feature called 'Kount Protect Send'. It should not be translated."
+   },
+   "sendsBodyNoItems": {
+     "message": "Share files and data securely with anyone, on any platform. Your information will remain end-to-end encrypted while limiting exposure.",
+-    "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
++    "description": "'Send' is a noun and the name of a feature called 'Kount Protect Send'. It should not be translated."
+   },
+   "inputRequired": {
+     "message": "Input is required."
+@@ -5118,15 +5127,15 @@
+     "message": "Skip to content"
+   },
+   "bitwardenOverlayButton": {
+-    "message": "Bitwarden autofill menu button",
++    "message": "Kount Protect autofill menu button",
+     "description": "Page title for the iframe containing the overlay button"
+   },
+   "toggleBitwardenVaultOverlay": {
+-    "message": "Toggle Bitwarden autofill menu",
++    "message": "Toggle Kount Protect autofill menu",
+     "description": "Screen reader and tool tip label for the overlay button"
+   },
+   "bitwardenVault": {
+-    "message": "Bitwarden autofill menu",
++    "message": "Kount Protect autofill menu",
+     "description": "Page title in overlay"
+   },
+   "unlockYourAccountToViewMatchingLogins": {
+@@ -5198,7 +5207,7 @@
+     "description": "Screen reader text (aria-label) for new identity button within inline menu"
+   },
+   "bitwardenOverlayMenuAvailable": {
+-    "message": "Bitwarden autofill menu available. Press the down arrow key to select.",
++    "message": "Kount Protect autofill menu available. Press the down arrow key to select.",
+     "description": "Screen reader text for announcing when the overlay opens on the page"
+   },
+   "turnOn": {
+@@ -5570,7 +5579,7 @@
+     "message": "Secure by design"
+   },
+   "importDataSecureByDesignBody": {
+-    "message": "End-to-end encrypted handoff. Bitwarden never sees your $VENDOR$ login details.",
++    "message": "End-to-end encrypted handoff. Kount Protect never sees your $VENDOR$ login details.",
+     "placeholders": {
+       "vendor": {
+         "content": "$1",
+@@ -5745,7 +5754,7 @@
+     "description": "Followed by a literal filename (my_passwords.json) rendered as code."
+   },
+   "importGnomeInstructionsFileHere": {
+-    "message": "file here to Bitwarden.",
++    "message": "file here to Kount Protect.",
+     "description": "Follows the my_passwords.json filename."
+   },
+   "importPasswordagentInstructions": {
+@@ -6412,7 +6421,7 @@
+     "message": "Active account"
+   },
+   "bitwardenAccount": {
+-    "message": "Bitwarden account"
++    "message": "Kount Protect account"
+   },
+   "availableAccounts": {
+     "message": "Available accounts"
+@@ -6458,8 +6467,8 @@
+     "description": "Label indicating the most common import formats"
+   },
+   "uriMatchDefaultStrategyHint": {
+-    "message": "URI match detection is how Bitwarden identifies autofill suggestions.",
+-    "description": "Explains to the user that URI match detection determines how Bitwarden suggests autofill options, and clarifies that this default strategy applies when no specific match detection is set for a login item."
++    "message": "URI match detection is how Kount Protect identifies autofill suggestions.",
++    "description": "Explains to the user that URI match detection determines how Kount Protect suggests autofill options, and clarifies that this default strategy applies when no specific match detection is set for a login item."
+   },
+   "regExAdvancedOptionWarning": {
+     "message": "\"Regular expression\" is an advanced option with increased risk of exposing credentials.",
+@@ -6502,24 +6511,24 @@
+     "description": "Body content for dialog which asks if the user wants to proceed to the browser's keyboard shortcut settings page"
+   },
+   "overrideDefaultBrowserAutofillTitle": {
+-    "message": "Make Bitwarden your default password manager?",
++    "message": "Make Kount Protect your default password manager?",
+     "description": "Dialog title facilitating the ability to override a chrome browser's default autofill behavior"
+   },
+   "overrideDefaultBrowserAutofillDescription": {
+-    "message": "Ignoring this option may cause conflicts between Bitwarden autofill suggestions and your browser's.",
++    "message": "Ignoring this option may cause conflicts between Kount Protect autofill suggestions and your browser's.",
+     "description": "Dialog message facilitating the ability to override a chrome browser's default autofill behavior"
+   },
+   "overrideDefaultBrowserAutoFillSettings": {
+-    "message": "Make Bitwarden your default password manager",
++    "message": "Make Kount Protect your default password manager",
+     "description": "Label for the setting that allows overriding the default browser autofill settings"
+   },
+   "defaultPasswordManagerCalloutTitle": {
+     "message": "Make your autofill experience better",
+-    "description": "Title for the callout that prompts users to set Bitwarden as their default password manager"
++    "description": "Title for the callout that prompts users to set Kount Protect as their default password manager"
+   },
+   "defaultPasswordManagerCalloutDesc": {
+-    "message": "You'll be asked to grant a $BROWSER$ browser permission to make Bitwarden your default password manager.",
+-    "description": "Description for the callout that prompts users to set Bitwarden as their default password manager",
++    "message": "You'll be asked to grant a $BROWSER$ browser permission to make Kount Protect your default password manager.",
++    "description": "Description for the callout that prompts users to set Kount Protect as their default password manager",
+     "placeholders": {
+       "browser": {
+         "content": "$1",
+@@ -6528,11 +6537,11 @@
+     }
+   },
+   "privacyPermissionAdditionNotGrantedTitle": {
+-    "message": "Unable to set Bitwarden as the default password manager",
++    "message": "Unable to set Kount Protect as the default password manager",
+     "description": "Title for the dialog that appears when the user has not granted the extension permission to set privacy settings"
+   },
+   "privacyPermissionAdditionNotGrantedDescription": {
+-    "message": "You must grant browser privacy permissions to Bitwarden to set it as the default password manager.",
++    "message": "You must grant browser privacy permissions to Kount Protect to set it as the default password manager.",
+     "description": "Description for the dialog that appears when the user has not granted the extension permission to set privacy settings"
+   },
+   "makeDefault": {
+@@ -6540,11 +6549,11 @@
+     "description": "Button text for the setting that allows overriding the default browser autofill settings"
+   },
+   "defaultPasswordManagerPromptTitle": {
+-    "message": "Make Bitwarden your browser's default password manager"
++    "message": "Make Kount Protect your browser's default password manager"
+   },
+   "defaultPasswordManagerPromptTitleV2": {
+-    "message": "Make Bitwarden your default password manager",
+-    "description": "Label for the setting to make Bitwarden the default password manager"
++    "message": "Make Kount Protect your default password manager",
++    "description": "Label for the setting to make Kount Protect the default password manager"
+   },
+   "defaultPasswordManagerSettingHintV2": {
+     "message": "Turn off the browser autofill settings to avoid conflicts.",
+@@ -6555,13 +6564,13 @@
+     "description": "Link text to browser autofill settings in the default password manager setting hint."
+   },
+   "defaultPasswordManagerPromptStep2AfterAllow": {
+-    "message": "from the browser prompt to give Bitwarden permission to change your settings."
++    "message": "from the browser prompt to give Kount Protect permission to change your settings."
+   },
+   "defaultPasswordManagerPromptStep3": {
+     "message": "We'll turn off your browser's built-in password manager so you can enjoy a secure login experience."
+   },
+   "defaultPasswordManagerSuccessToast": {
+-    "message": "Made Bitwarden your default browser password manager"
++    "message": "Made Kount Protect your default browser password manager"
+   },
+   "allow": {
+     "message": "Allow",
+@@ -6969,16 +6978,16 @@
+     "message": "Download Attachment"
+   },
+   "downloadBitwarden": {
+-    "message": "Download Bitwarden"
++    "message": "Download Kount Protect"
+   },
+   "downloadBitwardenOnAllDevices": {
+-    "message": "Download Bitwarden on all devices"
++    "message": "Download Kount Protect on all devices"
+   },
+   "getTheMobileApp": {
+     "message": "Get the mobile app"
+   },
+   "getTheMobileAppDesc": {
+-    "message": "Access your passwords on the go with the Bitwarden mobile app."
++    "message": "Access your passwords on the go with the Kount Protect mobile app."
+   },
+   "getTheDesktopApp": {
+     "message": "Get the desktop app"
+@@ -7418,15 +7427,15 @@
+   },
+   "fileSends": {
+     "message": "File Sends",
+-    "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
++    "description": "'Send' is a noun and the name of a feature called 'Kount Protect Send'. It should not be translated."
+   },
+   "textSends": {
+     "message": "Text Sends",
+-    "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
++    "description": "'Send' is a noun and the name of a feature called 'Kount Protect Send'. It should not be translated."
+   },
+   "itemSends": {
+     "message": "Item Sends",
+-    "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
++    "description": "'Send' is a noun and the name of a feature called 'Kount Protect Send'. It should not be translated."
+   },
+   "accountActions": {
+     "message": "Account actions"
+@@ -7531,10 +7540,10 @@
+     "message": "Biometric unlock is unavailable due to misconfigured system files."
+   },
+   "biometricsStatusHelptextDesktopDisconnected": {
+-    "message": "Biometric unlock is unavailable because the Bitwarden desktop app is closed."
++    "message": "Biometric unlock is unavailable because the Kount Protect desktop app is closed."
+   },
+   "biometricsStatusHelptextNotEnabledInDesktop": {
+-    "message": "Biometric unlock is unavailable because it is not enabled for $EMAIL$ in the Bitwarden desktop app.",
++    "message": "Biometric unlock is unavailable because it is not enabled for $EMAIL$ in the Kount Protect desktop app.",
+     "placeholders": {
+       "email": {
+         "content": "$1",
+@@ -7566,8 +7575,8 @@
+     "description": "Notification message for when a password has been regenerated"
+   },
+   "saveToBitwarden": {
+-    "message": "Save to Bitwarden",
+-    "description": "Confirmation message for saving a login to Bitwarden"
++    "message": "Save to Kount Protect",
++    "description": "Confirmation message for saving a login to Kount Protect"
+   },
+   "spaceCharacterDescriptor": {
+     "message": "Space",
+@@ -7810,13 +7819,13 @@
+     "message": "Use folders to organize vault items. They're just for you. No one else will see or use them."
+   },
+   "introCarouselLabel": {
+-    "message": "Welcome to Bitwarden"
++    "message": "Welcome to Kount Protect"
+   },
+   "securityPrioritized": {
+     "message": "Security, prioritized"
+   },
+   "securityPrioritizedBody": {
+-    "message": "Save logins, cards, and identities to your secure vault. Bitwarden uses zero-knowledge, end-to-end encryption to protect what’s important to you."
++    "message": "Save logins, cards, and identities to your secure vault. Kount Protect uses zero-knowledge, end-to-end encryption to protect what’s important to you."
+   },
+   "quickLogin": {
+     "message": "Quick and easy login"
+@@ -7834,7 +7843,7 @@
+     "message": "Your data, when and where you need it"
+   },
+   "secureDevicesBody": {
+-    "message": "Save unlimited passwords across unlimited devices with Bitwarden mobile, browser, and desktop apps."
++    "message": "Save unlimited passwords across unlimited devices with Kount Protect mobile, browser, and desktop apps."
+   },
+   "nudgeBadgeAria": {
+     "message": "1 notification"
+@@ -7843,7 +7852,7 @@
+     "message": "Import existing passwords"
+   },
+   "emptyVaultNudgeBody": {
+-    "message": "Use the importer to quickly transfer logins to Bitwarden without manually adding them."
++    "message": "Use the importer to quickly transfer logins to Kount Protect without manually adding them."
+   },
+   "emptyVaultNudgeButton": {
+     "message": "Import now"
+@@ -7962,7 +7971,7 @@
+     "message": "About this setting"
+   },
+   "permitCipherDetailsDescription": {
+-    "message": "Bitwarden will use saved login URIs to identify which icon or change password URL should be used to improve your experience. No information is collected or saved when you use this service."
++    "message": "Kount Protect will use saved login URIs to identify which icon or change password URL should be used to improve your experience. No information is collected or saved when you use this service."
+   },
+   "showQuickCopyActionsDetailsDescription": {
+     "message": "Add 3 quick copy buttons next to items to copy your username, password, or verification code to the clipboard."
+@@ -7971,7 +7980,7 @@
+     "message": "You do not have permissions to view this page. Try logging in with a different account."
+   },
+   "wasmNotSupported": {
+-    "message": "WebAssembly is not supported on your browser or is not enabled. WebAssembly is required to use the Bitwarden app.",
++    "message": "WebAssembly is not supported on your browser or is not enabled. WebAssembly is required to use the Kount Protect app.",
+     "description": "'WebAssembly' is a technical term and should not be translated."
+   },
+   "showMore": {
+@@ -8059,7 +8068,7 @@
+     "message": "Error: Cannot decrypt"
+   },
+   "removeMasterPasswordForOrgUserKeyConnector": {
+-    "message": "Your organization is no longer using master passwords to log into Bitwarden. To continue, verify the organization and domain."
++    "message": "Your organization is no longer using master passwords to log into Kount Protect. To continue, verify the organization and domain."
+   },
+   "continueWithLogIn": {
+     "message": "Continue with log in"
+@@ -8145,7 +8154,7 @@
+     "message": "Set an unlock method to change your timeout action"
+   },
+   "sessionTimeoutSuppressedByConnectedDevice": {
+-    "message": "Managed by the Bitwarden desktop app. Open the desktop app to edit."
++    "message": "Managed by the Kount Protect desktop app. Open the desktop app to edit."
+   },
+   "percentageCompleted": {
+     "message": "$PERCENT$% complete",
+@@ -8241,20 +8250,20 @@
+     "message": "Enter multiple emails by separating with a comma."
+   },
+   "emailPlaceholder": {
+-    "message": "user@bitwarden.com , user@acme.com"
++    "message": "user@example.com , user@acme.com"
+   },
+   "emailPlaceholderMultiple": {
+-    "message": "user@bitwarden.com, user@acme.com"
++    "message": "user@example.com, user@acme.com"
+   },
+   "downloadBitwardenApps": {
+-    "message": "Download Bitwarden apps"
++    "message": "Download Kount Protect apps"
+   },
+   "emailProtected": {
+     "message": "Email protected"
+   },
+   "sendPasswordHelperText": {
+     "message": "Individuals will need to enter the password to view this Send",
+-    "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
++    "description": "'Send' is a noun and the name of a feature called 'Kount Protect Send'. It should not be translated."
+   },
+   "userVerificationFailed": {
+     "message": "User verification failed."
+@@ -8266,7 +8275,7 @@
+     "message": "Synchronize unlock with desktop"
+   },
+   "syncUnlockWithDesktopDescription1": {
+-    "message": "The Bitwarden browser extension and desktop app lock and unlock together. Biometrics will be used if available."
++    "message": "The Kount Protect browser extension and desktop app lock and unlock together. Biometrics will be used if available."
+   },
+   "sharedUnlockUnavailableUntrustedDevice": {
+     "message": "Shared unlock is not available because you chose not to remember this device. To enable this setting, try logging in again."
+@@ -8275,13 +8284,13 @@
+     "message": "New permission needed"
+   },
+   "sharedUnlockDesktopPermissionDesc": {
+-    "message": "To use shared unlock, Bitwarden needs permission to communicate with the desktop app. When you continue, your browser will ask you to approve it."
++    "message": "To use shared unlock, Kount Protect needs permission to communicate with the desktop app. When you continue, your browser will ask you to approve it."
+   },
+   "sharedUnlockDesktopPermissionWarning": {
+-    "message": "Bitwarden will lock and reload. After you approve, the extension reloads and will lock your vault."
++    "message": "Kount Protect will lock and reload. After you approve, the extension reloads and will lock your vault."
+   },
+   "biometricPermissionDesc": {
+-    "message": "To use biometric unlock, Bitwarden needs permission to communicate with the desktop app. When you continue, your browser will ask you to approve it."
++    "message": "To use biometric unlock, Kount Protect needs permission to communicate with the desktop app. When you continue, your browser will ask you to approve it."
+   },
+   "enterMonth": {
+     "message": "Enter month."
+@@ -8404,7 +8413,7 @@
+   },
+   "sendCreated": {
+     "message": "Send created",
+-    "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
++    "description": "'Send' is a noun and the name of a feature called 'Kount Protect Send'. It should not be translated."
+   },
+   "numericInputError": {
+     "message": "Input must be numeric"
+@@ -8439,26 +8448,26 @@
+   },
+   "sendNotCompliantWithYourOrgsPolicy": {
+     "message": "Not compliant with your organization's Send policy",
+-    "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
++    "description": "'Send' is a noun and the name of a feature called 'Kount Protect Send'. It should not be translated."
+   },
+   "sendDisabledNonCompliantBannerMessage": {
+     "message": "To edit this Send, make a copy. If this Send can expire at the set deletion date, no action is needed",
+-    "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
++    "description": "'Send' is a noun and the name of a feature called 'Kount Protect Send'. It should not be translated."
+   },
+   "makeACopy": {
+     "message": "Make a copy"
+   },
+   "orgDoesNotAllowTextSends": {
+     "message": "Text Sends are not allowed for your organization",
+-    "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
++    "description": "'Send' is a noun and the name of a feature called 'Kount Protect Send'. It should not be translated."
+   },
+   "orgDoesNotAllowFileSends": {
+     "message": "File Sends are not allowed for your organization",
+-    "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
++    "description": "'Send' is a noun and the name of a feature called 'Kount Protect Send'. It should not be translated."
+   },
+   "sendWillAutomaticallyExpire": {
+     "message": "This Send will automatically expire at the set deletion date",
+-    "description": "'Send' is a noun and the name of a feature called 'Bitwarden Send'. It should not be translated."
++    "description": "'Send' is a noun and the name of a feature called 'Kount Protect Send'. It should not be translated."
+   },
+   "errorImportingMyItemsMultiCollectionV2": {
+     "message": "You cannot import items into My items that are part of multiple collections"
+@@ -8784,15 +8793,15 @@
+     "message": "Unable to determine item ID"
+   },
+   "newExperienceDialogTitle": {
+-    "message": "Bitwarden has a new look",
++    "message": "Kount Protect has a new look",
+     "description": "Title of the dialog that introduces the redesigned vault to existing users."
+   },
+   "newExperienceDialogDesc": {
+-    "message": "Better experience, same trusted security. The Bitwarden vault has been redesigned based on your feedback, so things are easier to find and work like you'd expect.",
++    "message": "Better experience, same trusted security. The Kount Protect vault has been redesigned based on your feedback, so things are easier to find and work like you'd expect.",
+     "description": "Body copy of the dialog that introduces the redesigned vault to existing users."
+   },
+   "newExperienceDialogImgAlt": {
+-    "message": "A preview of the redesigned Bitwarden vault.",
++    "message": "A preview of the redesigned Kount Protect vault.",
+     "description": "Alt text for the screenshot shown in the dialog that introduces the redesigned vault."
+   },
+   "exploreTheNewVault": {

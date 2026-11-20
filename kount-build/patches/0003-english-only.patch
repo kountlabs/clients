@@ -1,0 +1,72 @@
+diff --git a/apps/browser/src/platform/services/i18n.service.ts b/apps/browser/src/platform/services/i18n.service.ts
+index 74d1f27..5aa5e91 100644
+--- a/apps/browser/src/platform/services/i18n.service.ts
++++ b/apps/browser/src/platform/services/i18n.service.ts
+@@ -81,6 +81,8 @@ export default class I18nService extends BaseI18nService {
+       "zh-CN",
+       "zh-TW",
+     ];
++    // Kount: the build ships English only (one file holds every product name), whatever the browser's language.
++    this.supportedTranslationLocales = ["en"];
+   }
+ 
+   t(id: string, p1?: string, p2?: string, p3?: string): string {
+diff --git a/apps/browser/tsconfig.build.json b/apps/browser/tsconfig.build.json
+index 42ac111..e5c59eb 100644
+--- a/apps/browser/tsconfig.build.json
++++ b/apps/browser/tsconfig.build.json
+@@ -26,6 +26,7 @@
+     "src/autofill/overlay/inline-menu/pages/menu-container/bootstrap-autofill-inline-menu-container.ts",
+     "src/vault/content/send-on-installed-message.ts",
+     "src/vault/content/send-popup-open-message.ts",
++    "src/kount/protect-marker.content.ts",
+     "../../libs/common/src/autofill/constants"
+   ],
+   "exclude": ["**/*.spec.ts", "**/*.test.ts"]
+diff --git a/apps/browser/webpack.base.js b/apps/browser/webpack.base.js
+index aa529cf..c758c28 100644
+--- a/apps/browser/webpack.base.js
++++ b/apps/browser/webpack.base.js
+@@ -206,7 +206,7 @@ module.exports.buildConfig = function buildConfig(params) {
+           transform: manifest.transform(browser),
+         },
+         { from: path.resolve(__dirname, "src/managed_schema.json"), to: "managed_schema.json" },
+-        { from: path.resolve(__dirname, "src/_locales"), to: "_locales" },
++        { from: path.resolve(__dirname, "src/_locales/en"), to: "_locales/en" },
+         // For beta builds (CHANNEL=beta), *_beta.png variants overwrite their default
+         // siblings so the manifest/action/runtime icon paths resolve to beta icons
+         // without any manifest or code changes. Non-beta builds filter *_beta.png
+@@ -214,7 +214,9 @@ module.exports.buildConfig = function buildConfig(params) {
+         {
+           from: path.resolve(__dirname, "src/images"),
+           to: "images",
+-          filter: (resourcePath) => !path.basename(resourcePath).includes("_beta"),
++          // Kount: also Safari's toolbar icons (Bitwarden's shield) — Safari is never built.
++          filter: (resourcePath) =>
++            !path.basename(resourcePath).includes("_beta") && !path.basename(resourcePath).startsWith("icon18_safari"),
+         },
+         ...(process.env.CHANNEL === "beta"
+           ? [
+@@ -228,7 +230,12 @@ module.exports.buildConfig = function buildConfig(params) {
+               },
+             ]
+           : []),
+-        { from: path.resolve(__dirname, "src/popup/images"), to: "popup/images" },
++        // Kount: Bitwarden's wordmark pictures (logo-dark@2x.png, logo-white@2x.png) are left out — nothing draws them.
++        {
++          from: path.resolve(__dirname, "src/popup/images"),
++          to: "popup/images",
++          filter: (resourcePath) => !/^logo-(dark|white)@2x\.png$/.test(path.basename(resourcePath)),
++        },
+         { from: path.resolve(__dirname, "src/autofill/content/autofill.css"), to: "content" },
+       ],
+     }),
+@@ -325,6 +332,8 @@ module.exports.buildConfig = function buildConfig(params) {
+         __dirname,
+         "src/vault/content/send-popup-open-message.ts",
+       ),
++      // Kount: the page marker, registered for Protect's host by the background (never listed in a manifest).
++      "content/kount-protect-marker": path.resolve(__dirname, "src/kount/protect-marker.content.ts"),
+       ...params.additionalEntries,
+     },
+     cache:
